@@ -13,16 +13,9 @@ import {
 import JobImageCarousel from "@/components/JobImageCarousel";
 
 export const metadata: Metadata = {
-  title: "Оператор термопластавтомата | H&M Synergy",
-  description: "Вакансія оператора термопластавтомата в Польщі з H&M Synergy.",
-  alternates: {
-    canonical: "/ua/jobs/injection-machine-operator",
-    languages: {
-      en: "/en/jobs/injection-machine-operator",
-      pl: "/pl/jobs/injection-machine-operator",
-      uk: "/ua/jobs/injection-machine-operator",
-    },
-  },
+  title: "Оператор термопластавтомата | Вроцлав, Польща | H&M Synergy",
+  description:
+    "Робота оператором термопластавтомата у Вроцлаві, Нижньосілезьке воєводство, Польща. 25 PLN нетто/год., 12 годин роботи на день та 5–6 робочих днів на тиждень. Запрошуємо студентів та випускників.",
 };
 
 const primaryButton =
@@ -39,7 +32,7 @@ const sectionTitle =
 
 const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
-export default function UkrainianInjectionMachineOperatorPage() {
+export default function InjectionMachineOperatorPage() {
   return (
     <main className="overflow-hidden bg-white text-[#182230]">
       {/* =========================================================
@@ -62,16 +55,10 @@ export default function UkrainianInjectionMachineOperatorPage() {
                 термопластавтомата
               </h1>
 
-              <p className="mt-7 max-w-2xl text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8">
-                Приєднуйтесь до виробничої команди в Польщі як оператор
-                термопластавтомата. Ми шукаємо надійних людей, зацікавлених у
-                стабільній роботі на виробництві.
-              </p>
-
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-[#394656]">
                 <span className="inline-flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-[#159A86]" />
-                  Польща
+                  Вроцлав, Нижньосілезьке воєводство
                 </span>
 
                 <span className="inline-flex items-center gap-2">
@@ -80,22 +67,26 @@ export default function UkrainianInjectionMachineOperatorPage() {
                 </span>
               </div>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-[#8A96A3]">
+                Код вакансії: HMS-260801
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <a href="#apply" className={primaryButton}>
                   Подати заявку
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </a>
 
-                <Link href="/ua/jobs" className={secondaryButton}>
+                <Link href="/uk/jobs" className={secondaryButton}>
                   Усі вакансії
                 </Link>
               </div>
             </div>
 
-            {/* Salary card */}
+            {/* Salary / working conditions */}
             <div className="border border-[#DCE4EB] bg-white p-7 sm:p-8">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#159A86]">
-                Оплата праці
+                Заробітна плата
               </p>
 
               <p className="mt-4 text-4xl font-bold tracking-[-0.04em] text-[#0E2942] sm:text-5xl">
@@ -103,12 +94,27 @@ export default function UkrainianInjectionMachineOperatorPage() {
               </p>
 
               <p className="mt-1 text-sm font-medium text-[#5B6878]">
-                нетто / година
+                нетто / год.
               </p>
+
+              {/* Student highlight */}
+              <div className="mt-5 border-l-2 border-[#159A86] bg-[#F5F8FA] px-4 py-3">
+                <p className="text-sm font-bold text-[#0E2942]">
+                  Запрошуємо студентів та випускників
+                </p>
+
+                <p className="mt-1 text-sm leading-6 text-[#5B6878]">
+                  Студенти, які відповідають необхідним умовам, можуть
+                  користуватися податковими пільгами та отримувати повну
+                  погодинну ставку як нетто-заробіток.
+                </p>
+              </div>
 
               <div className="mt-7 border-t border-[#DCE4EB] pt-6">
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">Години роботи</span>
+                  <span className="text-sm text-[#5B6878]">
+                    Робочі години
+                  </span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     12 годин / день
@@ -116,7 +122,9 @@ export default function UkrainianInjectionMachineOperatorPage() {
                 </div>
 
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">Робочі дні</span>
+                  <span className="text-sm text-[#5B6878]">
+                    Робочі дні
+                  </span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     5–6 днів / тиждень
@@ -150,11 +158,11 @@ export default function UkrainianInjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Оплата
+                  Заробітна плата
                 </p>
 
                 <p className="mt-2 font-bold text-[#0E2942]">
-                  25 PLN нетто/год
+                  25 PLN нетто/год.
                 </p>
               </div>
             </div>
@@ -164,10 +172,12 @@ export default function UkrainianInjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Графік
+                  Робочі години
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">12 годин/день</p>
+                <p className="mt-2 font-bold text-[#0E2942]">
+                  12 годин/день
+                </p>
               </div>
             </div>
 
@@ -176,7 +186,7 @@ export default function UkrainianInjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Робочий тиждень
+                  Робочі дні
                 </p>
 
                 <p className="mt-2 font-bold text-[#0E2942]">
@@ -190,10 +200,12 @@ export default function UkrainianInjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Розташування
+                  Місце роботи
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">Польща</p>
+                <p className="mt-2 font-bold text-[#0E2942]">
+                  Вроцлав, Нижньосілезьке воєводство
+                </p>
               </div>
             </div>
           </div>
@@ -206,30 +218,35 @@ export default function UkrainianInjectionMachineOperatorPage() {
 
       <section className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
         <div>
-          <p className={sectionLabel}>Про посаду</p>
+          <p className={sectionLabel}>Опис роботи</p>
 
           <h2 className={`mt-5 ${sectionTitle}`}>
             Оператор термопластавтомата
           </h2>
         </div>
 
-        <div>
-          <div className="space-y-5">
-            <p className={bodyText}>
-              Ми шукаємо людей, зацікавлених у роботі на виробничому
-              підприємстві в якості операторів термопластавтоматів.
-            </p>
+        <div className="space-y-5">
+          <p className={bodyText}>
+            Ми шукаємо надійних та відповідальних людей для роботи на посаді
+            оператора термопластавтомата на виробництві у Вроцлаві,
+            Нижньосілезьке воєводство.
+          </p>
 
-            <p className={bodyText}>
-              Ця роль передбачає підтримку виробничого процесу, експлуатацію
-              обладнання для лиття під тиском та забезпечення виконання
-              виробничої роботи відповідно до процедур на робочому місці.
-            </p>
+          <p className={bodyText}>
+            Робота передбачає обслуговування термопластавтоматів та участь у
+            виробництві пластикових деталей. Оператор відповідає за контроль
+            виробничого процесу, вилучення готової продукції та проведення
+            базового візуального контролю якості.
+          </p>
 
-            <p className={bodyText}>
-              Це виробнича позиція, яка підходить для кандидатів, які є
-              надійними, відповідальними та комфортно почуваються працюючи у
-              змінному форматі на виробництві.
+          <p className={bodyText}>
+            Це виробнича посада для людей, які готові працювати позмінно,
+            дотримуватися робочих процедур та правил безпеки.
+          </p>
+
+          <div className="border-l-2 border-[#159A86] pl-5">
+            <p className="font-bold text-[#0E2942]">
+              Запрошуємо студентів та випускників до подачі заявки.
             </p>
           </div>
         </div>
@@ -244,17 +261,22 @@ export default function UkrainianInjectionMachineOperatorPage() {
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
             {/* Responsibilities */}
             <div>
-              <p className={sectionLabel}>Обов&apos;язки</p>
+              <p className={sectionLabel}>Обов’язки</p>
 
-              <h2 className={`mt-5 ${sectionTitle}`}>Що ви будете робити</h2>
+              <h2 className={`mt-5 ${sectionTitle}`}>
+                Що ви будете робити
+              </h2>
 
               <ul className="mt-9 border-t border-[#DCE4EB]">
                 {[
-                  "Експлуатація термопластавтоматів відповідно до внутрішніх процедур.",
-                  "Моніторинг виробничого процесу та операційне звітування про будь-які невідповідності.",
-                  "Проведення базового контролю якості виготовленої продукції.",
-                  "Підтримання чистоти та порядку на робочому місці.",
-                  "Дотримання правил охорони праці та виробничих інструкцій.",
+                  "Обслуговувати термопластавтомати відповідно до робочих процедур.",
+                  "Вилучати готову продукцію з виробничого процесу.",
+                  "Виконувати візуальний контроль якості виготовленої продукції.",
+                  "Контролювати виробничий процес та повідомляти про відхилення.",
+                  "Пакувати готову продукцію відповідно до робочих інструкцій.",
+                  "Підтримувати чистоту та порядок на робочому місці.",
+                  "Дотримуватися виробничих процедур та правил безпеки.",
+                  "Повідомляти керівника про проблеми або відхилення у виробничому процесі.",
                 ].map((item) => (
                   <li
                     key={item}
@@ -275,16 +297,16 @@ export default function UkrainianInjectionMachineOperatorPage() {
               <p className={sectionLabel}>Вимоги</p>
 
               <h2 className={`mt-5 ${sectionTitle}`}>
-                Що ми очікуємо від кандидата
+                Кого ми шукаємо
               </h2>
 
               <ul className="mt-9 border-t border-[#DCE4EB]">
                 {[
                   "Надійність та відповідальність.",
                   "Готовність працювати у виробничому середовищі.",
-                  "Здатність працювати по 12 годин у зміну.",
+                  "Готовність працювати по 12 годин.",
                   "Готовність працювати 5–6 днів на тиждень.",
-                  "Вміння дотримуватися інструкцій та правил техніки безпеки на робочому місці.",
+                  "Здатність дотримуватися інструкцій та правил безпеки праці.",
                 ].map((item) => (
                   <li
                     key={item}
@@ -311,15 +333,15 @@ export default function UkrainianInjectionMachineOperatorPage() {
         <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 lg:px-8 lg:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.72fr_1fr] lg:gap-20">
             <div>
-              <p className={sectionLabel}>Як подати заявку</p>
+              <p className={sectionLabel}>Подати заявку</p>
 
               <h2 className={`mt-5 ${sectionTitle}`}>
-                Зацікавила ця вакансія?
+                Вас зацікавила ця вакансія?
               </h2>
 
               <p className={`mt-6 max-w-md ${bodyText}`}>
-                Зв&apos;яжіться з H&amp;M Synergy та повідомте про свою
-                зацікавленість у вакансії оператора термопластавтомата.
+                Зв’яжіться з H&amp;M Synergy та повідомте, що ви зацікавлені у
+                вакансії оператора термопластавтомата у Вроцлаві.
               </p>
             </div>
 
@@ -327,7 +349,7 @@ export default function UkrainianInjectionMachineOperatorPage() {
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                    Електронна пошта
+                    E-mail
                   </p>
 
                   <a
@@ -348,18 +370,20 @@ export default function UkrainianInjectionMachineOperatorPage() {
                     className="mt-2 block text-sm font-semibold text-[#123B63] hover:text-[#159A86]"
                   >
                     +48 739 686 095
+                    <br />
+                    +48 573 415 010
                   </a>
                 </div>
               </div>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link href="/ua/contact" className={primaryButton}>
-                  Подати заявку на цю роботу
+                <Link href="/uk/contact" className={primaryButton}>
+                  Подати заявку
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
 
-                <Link href="/ua/jobs" className={secondaryButton}>
-                  Переглянути всі вакансії
+                <Link href="/uk/jobs" className={secondaryButton}>
+                  Усі вакансії
                 </Link>
               </div>
             </div>
@@ -371,28 +395,29 @@ export default function UkrainianInjectionMachineOperatorPage() {
           FINAL CTA
       ========================================================= */}
 
-      <section className="bg-[#0E2942] px-6 py-20 sm:px-10 lg:px-8 lg:py-24">
+      <section className="border-t border-[#DCE4EB] bg-[#F5F8FA] px-6 py-20 sm:px-10 lg:px-8 lg:py-24">
         <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-10 md:flex-row md:items-end">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#8FD8CA]">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#159A86]">
               H&amp;M Synergy
             </p>
 
-            <h2 className="mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-white sm:text-4xl lg:text-[2.8rem]">
+            <h2 className="mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-[#0E2942] sm:text-4xl lg:text-[2.8rem]">
               Ваша наступна можливість може бути ближче, ніж ви думаєте.
             </h2>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[#D8E2EC] sm:text-lg sm:leading-8">
-              Зв&apos;яжіться з нашою командою рекрутерів, щоб обговорити цю
-              посаду та процес подачі заявки.
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8">
+              Зв’яжіться з нашою рекрутинговою командою, щоб подати заявку на
+              цю вакансію.
             </p>
           </div>
 
           <Link
-            href="/ua/contact"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 bg-white px-6 py-3.5 text-sm font-semibold text-[#0E2942] transition-all duration-200 hover:bg-[#EAF3FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0E2942]"
+            href="/uk/contact"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 bg-[#123B63] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#0E2942] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2"
           >
-            Зв&apos;яжіться з нами
+            Зв’язатися з нами
+
             <ArrowRight
               className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
               aria-hidden="true"

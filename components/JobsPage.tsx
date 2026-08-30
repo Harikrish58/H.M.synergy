@@ -10,7 +10,7 @@ import {
 const jobs = [
   {
     title: "Injection Machine Operator",
-    location: "Poland",
+    location: "Wrocław, Lower Silesia",
     category: "Production",
     tags: ["Full-time", "Shift work"],
     href: "/en/jobs/injection-machine-operator",

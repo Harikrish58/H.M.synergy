@@ -13,9 +13,9 @@ import {
 import JobImageCarousel from "@/components/JobImageCarousel";
 
 export const metadata: Metadata = {
-  title: "Injection Machine Operator | H&M Synergy",
+  title: "Injection Machine Operator | Wrocław, Poland | H&M Synergy",
   description:
-    "Injection Machine Operator job opportunity in Poland with H&M Synergy.",
+    "Injection Machine Operator job in Wrocław, Lower Silesia, Poland. 25 PLN net/hour, 12-hour shifts and 5–6 working days per week. Students and graduates are welcome to apply.",
 };
 
 const primaryButton =
@@ -30,8 +30,7 @@ const sectionLabel =
 const sectionTitle =
   "text-3xl font-bold leading-tight tracking-[-0.035em] text-[#0E2942] sm:text-4xl";
 
-const bodyText =
-  "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
+const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
 export default function InjectionMachineOperatorPage() {
   return (
@@ -56,16 +55,10 @@ export default function InjectionMachineOperatorPage() {
                 Operator
               </h1>
 
-              <p className="mt-7 max-w-2xl text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8">
-                Join a manufacturing team in Poland as an Injection Machine
-                Operator. We are looking for reliable people interested in
-                stable production work.
-              </p>
-
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-[#394656]">
                 <span className="inline-flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-[#159A86]" />
-                  Poland
+                  Wrocław, Lower Silesia
                 </span>
 
                 <span className="inline-flex items-center gap-2">
@@ -74,7 +67,11 @@ export default function InjectionMachineOperatorPage() {
                 </span>
               </div>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-[#8A96A3]">
+                Job Code: HMS-260801
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <a href="#apply" className={primaryButton}>
                   Apply Now
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -86,10 +83,10 @@ export default function InjectionMachineOperatorPage() {
               </div>
             </div>
 
-            {/* Salary card */}
+            {/* Salary / working conditions */}
             <div className="border border-[#DCE4EB] bg-white p-7 sm:p-8">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#159A86]">
-                Compensation
+                Salary
               </p>
 
               <p className="mt-4 text-4xl font-bold tracking-[-0.04em] text-[#0E2942] sm:text-5xl">
@@ -100,11 +97,21 @@ export default function InjectionMachineOperatorPage() {
                 net / hour
               </p>
 
+              {/* Student highlight */}
+              <div className="mt-5 border-l-2 border-[#159A86] bg-[#F5F8FA] px-4 py-3">
+                <p className="text-sm font-bold text-[#0E2942]">
+                  Students &amp; graduates welcome
+                </p>
+
+                <p className="mt-1 text-sm leading-6 text-[#5B6878]">
+                  Eligible students can benefit from special tax advantages,
+                  allowing them to receive the full hourly rate as net pay.
+                </p>
+              </div>
+
               <div className="mt-7 border-t border-[#DCE4EB] pt-6">
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">
-                    Working hours
-                  </span>
+                  <span className="text-sm text-[#5B6878]">Working hours</span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     12 hours / day
@@ -112,9 +119,7 @@ export default function InjectionMachineOperatorPage() {
                 </div>
 
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">
-                    Working days
-                  </span>
+                  <span className="text-sm text-[#5B6878]">Working days</span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     5–6 days / week
@@ -148,12 +153,10 @@ export default function InjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Pay
+                  Salary
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">
-                  25 PLN net/hour
-                </p>
+                <p className="mt-2 font-bold text-[#0E2942]">25 PLN net/hour</p>
               </div>
             </div>
 
@@ -162,12 +165,10 @@ export default function InjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Schedule
+                  Working hours
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">
-                  12 hours/day
-                </p>
+                <p className="mt-2 font-bold text-[#0E2942]">12 hours/day</p>
               </div>
             </div>
 
@@ -176,12 +177,10 @@ export default function InjectionMachineOperatorPage() {
 
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8A96A3]">
-                  Working week
+                  Working days
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">
-                  5–6 days/week
-                </p>
+                <p className="mt-2 font-bold text-[#0E2942]">5–6 days/week</p>
               </div>
             </div>
 
@@ -194,7 +193,7 @@ export default function InjectionMachineOperatorPage() {
                 </p>
 
                 <p className="mt-2 font-bold text-[#0E2942]">
-                  Poland
+                  Wrocław, Lower Silesia
                 </p>
               </div>
             </div>
@@ -208,30 +207,34 @@ export default function InjectionMachineOperatorPage() {
 
       <section className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
         <div>
-          <p className={sectionLabel}>The position</p>
+          <p className={sectionLabel}>Job description</p>
 
-          <h2 className={`mt-5 ${sectionTitle}`}>
-            Injection Machine Operator
-          </h2>
+          <h2 className={`mt-5 ${sectionTitle}`}>Injection Machine Operator</h2>
         </div>
 
-        <div>
-          <div className="space-y-5">
-            <p className={bodyText}>
-              We are looking for people interested in working in a
-              manufacturing environment as Injection Machine Operators.
-            </p>
+        <div className="space-y-5">
+          <p className={bodyText}>
+            We are looking for reliable and responsible people to work as
+            Injection Machine Operators in a manufacturing environment in
+            Wrocław, Lower Silesia.
+          </p>
 
-            <p className={bodyText}>
-              The role involves supporting the production process, operating
-              injection molding machinery and ensuring that production work is
-              carried out according to workplace procedures.
-            </p>
+          <p className={bodyText}>
+            The position involves operating injection molding machines and
+            supporting the production of plastic components. The operator is
+            responsible for monitoring the production process, handling finished
+            products and performing basic visual quality checks.
+          </p>
 
-            <p className={bodyText}>
-              This is a production position suitable for candidates who are
-              reliable, responsible and comfortable working in a shift-based
-              manufacturing environment.
+          <p className={bodyText}>
+            This is a production position for candidates who are comfortable
+            working in a shift-based environment and following workplace
+            procedures and safety instructions.
+          </p>
+
+          <div className="border-l-2 border-[#159A86] pl-5">
+            <p className="font-bold text-[#0E2942]">
+              Students and graduates are welcome to apply.
             </p>
           </div>
         </div>
@@ -248,17 +251,18 @@ export default function InjectionMachineOperatorPage() {
             <div>
               <p className={sectionLabel}>Responsibilities</p>
 
-              <h2 className={`mt-5 ${sectionTitle}`}>
-                What you will do
-              </h2>
+              <h2 className={`mt-5 ${sectionTitle}`}>What you will do</h2>
 
               <ul className="mt-9 border-t border-[#DCE4EB]">
                 {[
                   "Operate injection molding machines according to workplace procedures.",
+                  "Remove finished products from the production process.",
+                  "Perform visual quality checks of manufactured products.",
                   "Monitor the production process and report irregularities.",
-                  "Perform basic quality checks of manufactured products.",
+                  "Pack finished products according to workplace instructions.",
                   "Keep the workstation clean and organised.",
-                  "Follow workplace safety and production instructions.",
+                  "Follow production, workplace and safety instructions.",
+                  "Report production problems or irregularities to the supervisor.",
                 ].map((item) => (
                   <li
                     key={item}
@@ -315,7 +319,7 @@ export default function InjectionMachineOperatorPage() {
         <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 lg:px-8 lg:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.72fr_1fr] lg:gap-20">
             <div>
-              <p className={sectionLabel}>How to apply</p>
+              <p className={sectionLabel}>Apply</p>
 
               <h2 className={`mt-5 ${sectionTitle}`}>
                 Interested in this position?
@@ -323,7 +327,7 @@ export default function InjectionMachineOperatorPage() {
 
               <p className={`mt-6 max-w-md ${bodyText}`}>
                 Contact H&amp;M Synergy and tell us that you are interested in
-                the Injection Machine Operator position.
+                the Injection Machine Operator position in Wrocław.
               </p>
             </div>
 
@@ -352,6 +356,8 @@ export default function InjectionMachineOperatorPage() {
                     className="mt-2 block text-sm font-semibold text-[#123B63] hover:text-[#159A86]"
                   >
                     +48 739 686 095
+                    <br />
+                    +48 573 415 010
                   </a>
                 </div>
               </div>
@@ -375,29 +381,27 @@ export default function InjectionMachineOperatorPage() {
           FINAL CTA
       ========================================================= */}
 
-      <section className="bg-[#0E2942] px-6 py-20 sm:px-10 lg:px-8 lg:py-24">
+      <section className="border-t border-[#DCE4EB] bg-[#F5F8FA] px-6 py-20 sm:px-10 lg:px-8 lg:py-24">
         <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-10 md:flex-row md:items-end">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#8FD8CA]">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#159A86]">
               H&amp;M Synergy
             </p>
 
-            <h2 className="mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-white sm:text-4xl lg:text-[2.8rem]">
+            <h2 className="mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-[#0E2942] sm:text-4xl lg:text-[2.8rem]">
               Your next opportunity could be closer than you think.
             </h2>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[#D8E2EC] sm:text-lg sm:leading-8">
-              Contact our recruitment team to discuss this position and the
-              application process.
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8">
+              Contact our recruitment team to apply for this position.
             </p>
           </div>
 
           <Link
             href="/en/contact"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 bg-white px-6 py-3.5 text-sm font-semibold text-[#0E2942] transition-all duration-200 hover:bg-[#EAF3FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0E2942]"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 bg-[#123B63] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#0E2942] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2"
           >
             Contact Us
-
             <ArrowRight
               className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
               aria-hidden="true"

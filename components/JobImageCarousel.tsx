@@ -6,15 +6,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
   {
-    src: "/jobs/injection-machine-operator-1.jpg",
+    src: "/jobs/injection-machine-operator-1.png",
     alt: "Injection molding machine in a manufacturing facility",
   },
   {
-    src: "/jobs/injection-machine-operator-2.jpg",
+    src: "/jobs/injection-machine-operator-2.png",
     alt: "Industrial production line",
   },
   {
-    src: "/jobs/injection-machine-operator-3.jpg",
+    src: "/jobs/injection-machine-operator-3.png",
     alt: "Manufacturing worker operating industrial machinery",
   },
 ];
@@ -33,18 +33,18 @@ export default function JobImageCarousel() {
   return (
     <div className="relative overflow-hidden bg-[#0E2942]">
       {/* Main image */}
-      <div className="relative aspect-[16/9] w-full sm:aspect-[16/8]">
+      <div className="relative aspect-video w-full">
         <Image
           src={images[active].src}
           alt={images[active].alt}
           fill
           priority={active === 0}
           sizes="(max-width: 1280px) 100vw, 1280px"
-          className="object-cover"
+          className="object-contain"
         />
 
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/15" />
+        <div className="absolute inset-0 bg-black/10" />
 
         {/* Counter */}
         <div className="absolute right-5 top-5 bg-[#0E2942]/85 px-3 py-2 text-xs font-semibold text-white">
@@ -74,13 +74,13 @@ export default function JobImageCarousel() {
       </div>
 
       {/* Thumbnails */}
-      <div className="grid grid-cols-3 gap-px bg-[#DCE4EB]">
+      <div className="grid grid-cols-3 gap-1 bg-[#0E2942] p-1">
         {images.map((image, index) => (
           <button
             key={image.src}
             type="button"
             onClick={() => setActive(index)}
-            className={`relative aspect-[16/7] overflow-hidden bg-[#0E2942] ${
+            className={`relative aspect-[16/8] overflow-hidden bg-[#0E2942] ${
               active === index
                 ? "ring-2 ring-inset ring-[#159A86]"
                 : "opacity-75 hover:opacity-100"
