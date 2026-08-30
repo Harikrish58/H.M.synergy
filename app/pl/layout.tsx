@@ -1,20 +1,34 @@
-import "../globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "H&M Synergy",
-  description: "Koordynacja dostaw, optymalizacja kosztów oraz usługi IT.",
+export const metadata: Metadata = {
+  title: {
+    default: "Praca i rekrutacja w Polsce",
+    template: "%s | H&M Synergy",
+  },
+
+  description:
+    "Znajdź pracę w Polsce z H&M Synergy. Łączymy studentów, absolwentów, pracowników z Ukrainy i innych kandydatów z ofertami pracy w produkcji, logistyce i innych branżach.",
+
+  alternates: {
+    canonical: "/pl",
+    languages: {
+      en: "/en",
+      pl: "/pl",
+    },
+  },
+
+  openGraph: {
+    locale: "pl_PL",
+    url: "/pl",
+    type: "website",
+    siteName: "H&M Synergy",
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="pl">
-      <body className="bg-gray-50">
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
-  );
+export default function PolishLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return children;
 }

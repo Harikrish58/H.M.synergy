@@ -69,24 +69,29 @@ const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
 export default function HomePage() {
   return (
-    <main className="overflow-hidden bg-white text-[#182230]">
+    // Changed overflow-hidden to overflow-x-hidden to prevent vertical cropping on the page level
+    <main className="overflow-x-hidden bg-white text-[#182230]">
       {/* =========================================================
-    HERO — LIGHT GRAY
-========================================================= */}
+          HERO — LIGHT GRAY
+      ========================================================= */}
       <section
         aria-labelledby="hero-title"
-        className="overflow-hidden border-b border-[#DCE4EB] bg-[#F5F8FA]"
+        className="w-full border-b border-[#DCE4EB] bg-[#F5F8FA]"
       >
-        <div className="mx-auto grid max-w-[1280px] lg:h-[calc(100dvh-90px)] lg:grid-cols-[1.02fr_0.98fr]">
-          {/* Hero content */}
-          <div className="flex min-h-0 flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:px-8 lg:py-8 xl:pr-16">
+        {/* 
+          1. lg:min-h-[calc(100dvh-90px)] ensures it fills the desktop screen but GROWS if text is long.
+          2. flex flex-col lg:grid ensures it stacks cleanly on mobile before switching to a side-by-side grid.
+        */}
+        <div className="mx-auto flex max-w-[1280px] flex-col lg:grid lg:min-h-[calc(100dvh-90px)] lg:grid-cols-[1.02fr_0.98fr]">
+          
+          {/* TEXT CONTAINER */}
+          <div className="flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:px-8 lg:py-12 xl:pr-16">
             <div className="max-w-2xl">
               <div className="flex items-center gap-3">
                 <span
                   className="h-px w-8 shrink-0 bg-[#159A86]"
                   aria-hidden="true"
                 />
-
                 <p className={sectionLabel}>{content.hero.eyebrow}</p>
               </div>
 
@@ -101,10 +106,9 @@ export default function HomePage() {
                 {content.hero.description}
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/en/employers" className={primaryLink}>
                   {content.hero.employerCta}
-
                   <ArrowRight
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     aria-hidden="true"
@@ -113,7 +117,6 @@ export default function HomePage() {
 
                 <Link href="/en/employees" className={secondaryLink}>
                   {content.hero.employeeCta}
-
                   <ArrowRight
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     aria-hidden="true"
@@ -121,14 +124,13 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-x-7 gap-y-3 border-t border-[#DCE4EB] pt-5">
+              <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-[#DCE4EB] pt-6">
                 {content.hero.areas.map((area) => (
                   <div key={area} className="flex items-center gap-2">
                     <span
                       className="h-1.5 w-1.5 shrink-0 bg-[#159A86]"
                       aria-hidden="true"
                     />
-
                     <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5B6878]">
                       {area}
                     </span>
@@ -138,15 +140,20 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Hero image */}
-          <div className="relative min-h-[360px] overflow-hidden border-t border-[#DCE4EB] lg:min-h-0 lg:border-l lg:border-t-0">
+          {/* IMAGE CONTAINER */}
+          {/* 
+            1. h-[400px] sm:h-[500px] guarantees a solid height on mobile/tablet so it doesn't crop into a thin strip.
+            2. lg:h-auto lg:min-h-full forces the image to perfectly match the height of the text block on desktop.
+          */}
+          <div className="relative h-[400px] w-full border-t border-[#DCE4EB] sm:h-[500px] lg:h-auto lg:min-h-full lg:border-l lg:border-t-0">
             <Image
               src="/images/manufacturing-workforce-hero.png"
               alt="Workers in a professional manufacturing and production environment"
               fill
               priority
               sizes="(min-width: 1024px) 49vw, 100vw"
-              className="object-cover"
+              // object-center ensures the middle of the image stays in frame even when scaling
+              className="object-cover object-center" 
             />
 
             <div

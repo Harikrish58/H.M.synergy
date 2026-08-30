@@ -4,16 +4,15 @@ import { ArrowRight, Check } from "lucide-react";
 
 import { servicesContent } from "@/app/content/services";
 
-const content = servicesContent.en;
+const content = servicesContent.pl;
 
 export const metadata: Metadata = {
   title: content.seo.title,
   description: content.seo.description,
   keywords: [...content.seo.keywords],
-  
 
   alternates: {
-    canonical: "/en/services",
+    canonical: "/pl/services",
     languages: {
       en: "/en/services",
       pl: "/pl/services",
@@ -22,8 +21,8 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    locale: "en_PL",
-    url: "/en/services",
+    locale: "pl_PL",
+    url: "/pl/services",
     siteName: "H&M Synergy",
     title: content.seo.ogTitle,
     description: content.seo.ogDescription,
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "H&M Synergy — Employment and Business Services in Poland",
+        alt: "H&M Synergy — Usługi pracy, rekrutacji i biznesowe w Polsce",
       },
     ],
   },
@@ -65,7 +64,7 @@ const sectionTitle =
 const bodyText =
   "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
-export default function ServicesPage() {
+export default function PolishServicesPage() {
   const { hero, services, cta } = content;
 
   return (
@@ -113,7 +112,7 @@ export default function ServicesPage() {
           <div className="grid gap-12 lg:grid-cols-[0.72fr_1fr] lg:gap-20">
             {/* Introduction */}
             <div>
-              <p className={sectionLabel}>What we provide</p>
+              <p className={sectionLabel}>Co oferujemy</p>
 
               <div
                 className="mt-8 hidden h-px w-20 bg-[#DCE4EB] lg:block"
@@ -121,15 +120,15 @@ export default function ServicesPage() {
               />
 
               <p className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
-                Employment, workforce and business solutions designed around
-                the practical needs of companies operating in Poland.
+                Rozwiązania z zakresu zatrudnienia, rekrutacji, kadr i biznesu
+                dopasowane do praktycznych potrzeb firm działających w Polsce.
               </p>
             </div>
 
             {/* Service list */}
             <div>
               <h2 id="service-areas-title" className="sr-only">
-                Our service areas
+                Obszary naszych usług
               </h2>
 
               <div className="border-t border-[#DCE4EB]">
@@ -158,9 +157,9 @@ export default function ServicesPage() {
                     <Link
                       href={service.href}
                       className={`${textLink} sm:mt-1`}
-                      aria-label={`View ${service.title} service`}
+                      aria-label={`Zobacz usługę: ${service.title}`}
                     >
-                      View service
+                      Zobacz usługę
 
                       <ArrowRight
                         className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
@@ -184,19 +183,19 @@ export default function ServicesPage() {
       >
         <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
           <div>
-            <p className={sectionLabel}>Our approach</p>
+            <p className={sectionLabel}>Nasze podejście</p>
 
             <h2 id="approach-title" className={`mt-5 ${sectionTitle}`}>
-              Workforce support that works around your business.
+              Wsparcie kadrowe dopasowane do Twojej firmy.
             </h2>
           </div>
 
           <div>
             <p className={bodyText}>
-              Every business has different workforce requirements. We focus on
-              understanding your operation, identifying the people you need and
-              supporting the process from recruitment through ongoing
-              coordination.
+              Każda firma ma inne potrzeby związane z pracownikami. Skupiamy
+              się na poznaniu specyfiki Twojej działalności, określeniu
+              potrzebnych pracowników oraz wsparciu procesu — od rekrutacji po
+              bieżącą koordynację współpracy.
             </p>
 
             <div className="mt-10 border-t border-[#DCE4EB]">
@@ -208,12 +207,12 @@ export default function ServicesPage() {
 
                 <div>
                   <h3 className="font-semibold text-[#0E2942]">
-                    Understand your requirements
+                    Poznajemy Twoje potrzeby
                   </h3>
 
                   <p className="mt-2 text-sm leading-6 text-[#5B6878]">
-                    We learn about the positions, skills, schedules and
-                    workforce requirements of your operation.
+                    Poznajemy stanowiska, wymagane umiejętności, harmonogram
+                    pracy oraz potrzeby kadrowe Twojej firmy.
                   </p>
                 </div>
               </div>
@@ -226,12 +225,12 @@ export default function ServicesPage() {
 
                 <div>
                   <h3 className="font-semibold text-[#0E2942]">
-                    Find suitable candidates
+                    Znajdujemy odpowiednich kandydatów
                   </h3>
 
                   <p className="mt-2 text-sm leading-6 text-[#5B6878]">
-                    We source candidates according to the requirements of each
-                    position, workplace and employer.
+                    Pozyskujemy kandydatów zgodnie z wymaganiami konkretnego
+                    stanowiska, miejsca pracy i pracodawcy.
                   </p>
                 </div>
               </div>
@@ -244,12 +243,12 @@ export default function ServicesPage() {
 
                 <div>
                   <h3 className="font-semibold text-[#0E2942]">
-                    Support the employment process
+                    Wspieramy proces zatrudnienia
                   </h3>
 
                   <p className="mt-2 text-sm leading-6 text-[#5B6878]">
-                    We remain available to support communication and workforce
-                    coordination throughout the cooperation.
+                    Pozostajemy dostępni, wspierając komunikację i koordynację
+                    pracowników przez cały okres współpracy.
                   </p>
                 </div>
               </div>

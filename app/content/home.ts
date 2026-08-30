@@ -89,7 +89,7 @@ export type HomeContent = {
   };
 };
 
-export const homeContent: Record<"en", HomeContent> = {
+export const homeContent: Record<"en" | "pl", HomeContent> = {
   en: {
     seo: {
       title: "Jobs & Recruitment in Poland | H&M Synergy",
@@ -310,6 +310,249 @@ export const homeContent: Record<"en", HomeContent> = {
         "Whether you are an employer looking for workers or a candidate looking for a job in Poland, H&M Synergy is ready to help.",
 
       cta: "Talk to Us",
+    },
+  },
+
+  // =========================================================
+  // POLISH
+  // =========================================================
+
+  pl: {
+    seo: {
+      title: "Praca i rekrutacja w Polsce | H&M Synergy",
+
+      description:
+        "H&M Synergy to agencja pracy i rekrutacji w Polsce. Łączymy pracodawców z odpowiednimi pracownikami oraz pomagamy studentom, absolwentom i kandydatom z Ukrainy znaleźć pracę w produkcji, przemyśle, logistyce, magazynach i innych branżach.",
+
+      keywords: [
+        "agencja pracy Polska",
+        "agencja pracy w Polsce",
+        "agencja rekrutacyjna Polska",
+        "rekrutacja pracowników Polska",
+        "praca w Polsce",
+        "oferty pracy w Polsce",
+        "praca na produkcji",
+        "praca produkcja",
+        "praca w przemyśle",
+        "praca jako operator maszyn",
+        "operator maszyn praca",
+        "praca przy wtryskarkach",
+        "operator wtryskarki",
+        "praca magazyn",
+        "praca magazynowa",
+        "praca w logistyce",
+        "praca dla studentów",
+        "praca dla studentów w Polsce",
+        "praca dla absolwentów",
+        "praca dla absolwentów w Polsce",
+        "praca dla Ukraińców w Polsce",
+        "praca dla cudzoziemców w Polsce",
+        "zatrudnienie w Polsce",
+      ],
+
+      ogTitle: "H&M Synergy | Praca i rekrutacja w Polsce",
+
+      ogDescription:
+        "Szukasz pracy w Polsce lub pracowników dla swojej firmy? H&M Synergy wspiera pracodawców i osoby poszukujące pracy w produkcji, przemyśle, logistyce, magazynach i innych branżach.",
+    },
+
+    hero: {
+      eyebrow: "Praca i rozwiązania kadrowe w Polsce",
+
+      title: "Łączymy właściwych ludzi z odpowiednimi możliwościami.",
+
+      description:
+        "H&M Synergy to agencja pracy i rekrutacji w Polsce, która łączy pracodawców z odpowiednimi pracownikami i pomaga kandydatom znaleźć dopasowane zatrudnienie. Koncentrujemy się na produkcji, przemyśle, logistyce, magazynach i innych stanowiskach operacyjnych.",
+
+      employerCta: "Znajdź pracowników",
+
+      employeeCta: "Znajdź pracę",
+
+      areas: [
+        "Produkcja",
+        "Przemysł",
+        "Logistyka",
+        "Magazyny",
+      ],
+
+      imageLabel: "H&M Synergy",
+
+      imageDescription:
+        "Rozwiązania z zakresu zatrudnienia i rekrutacji łączące ludzi i firmy w Polsce.",
+    },
+
+    company: {
+      eyebrow: "H&M Synergy",
+
+      title: "Ludzie dla firm. Możliwości dla ludzi.",
+
+      description:
+        "Łączymy firmy w Polsce z pracownikami odpowiadającymi ich potrzebom, jednocześnie pomagając osobom poszukującym pracy znaleźć odpowiednie zatrudnienie. Od rekrutacji i pozyskiwania pracowników po koordynację współpracy — wspieramy obie strony procesu zatrudnienia.",
+
+      cta: "Dowiedz się o nas więcej",
+    },
+
+    services: {
+      eyebrow: "Nasze usługi",
+
+      title: "Rekrutacja i rozwiązania kadrowe dopasowane do potrzeb Twojej firmy.",
+
+      description:
+        "Pomagamy pracodawcom znaleźć i koordynować pracowników do produkcji, przemysłu, logistyki, magazynów oraz innych środowisk operacyjnych.",
+
+      cta: "Zobacz wszystkie usługi",
+
+      items: [
+        {
+          title: "Rozwiązania kadrowe",
+
+          description:
+            "Pomagamy firmom znaleźć pracowników do produkcji, przemysłu, magazynów, logistyki i innych stanowisk operacyjnych, zgodnie z ich zapotrzebowaniem kadrowym.",
+        },
+
+        {
+          title: "Rekrutacja",
+
+          description:
+            "Pozyskujemy kandydatów i dopasowujemy ich do odpowiednich stanowisk, uwzględniając wymagania pracodawcy, miejsca pracy oraz konkretnej roli.",
+        },
+
+        {
+          title: "Koordynacja pracowników",
+
+          description:
+            "Wspieramy komunikację i koordynację na kolejnych etapach procesu zatrudnienia, pomagając pracodawcom i pracownikom sprawnie współpracować.",
+        },
+      ],
+    },
+
+    manufacturing: {
+      eyebrow: "Produkcja i przemysł",
+
+      title: "Wspieramy ludzi, którzy stoją za nowoczesną produkcją.",
+
+      description:
+        "Produkcja i przemysł to kluczowe obszary naszej działalności rekrutacyjnej. Pomagamy pracodawcom znaleźć pracowników do obsługi wtryskarek, linii produkcyjnych, montażu oraz innych stanowisk przemysłowych.",
+
+      positions: [
+        "Operatorzy wtryskarek",
+        "Pracownicy produkcji",
+        "Pracownicy montażu",
+        "Pracownicy przemysłowi",
+      ],
+
+      cta: "Zobacz dostępne stanowiska",
+    },
+
+    employers: {
+      eyebrow: "Dla pracodawców",
+
+      title: "Potrzebujesz sprawdzonych pracowników do swojej firmy?",
+
+      description:
+        "Powiedz nam, jakich pracowników potrzebujesz, jakie stanowiska chcesz obsadzić i kiedy potrzebujesz dodatkowych osób. Wspólnie dobierzemy odpowiednie rozwiązanie rekrutacyjne i kadrowe.",
+
+      steps: [
+        "Przedstaw nam swoje potrzeby",
+        "Znajdziemy odpowiednich kandydatów",
+        "Wesprzemy proces zatrudnienia",
+      ],
+
+      cta: "Opowiedz nam, czego potrzebujesz",
+    },
+
+    employees: {
+      eyebrow: "Dla osób poszukujących pracy",
+
+      title: "Znajdź swoją kolejną pracę w Polsce.",
+
+      description:
+        "Poznaj aktualne możliwości zatrudnienia w produkcji, przemyśle, logistyce, magazynach i innych branżach. Studenci, absolwenci oraz pracownicy z Ukrainy w Polsce są szczególnie mile widziani przy odpowiednich ofertach pracy.",
+
+      audience: [
+        "Studenci szukający pracy w Polsce",
+        "Absolwenci rozpoczynający karierę zawodową",
+        "Pracownicy z Ukrainy szukający pracy w Polsce",
+        "Kandydaci zainteresowani pracą w produkcji i przemyśle",
+      ],
+
+      jobsCta: "Zobacz oferty pracy",
+
+      contactCta: "Skontaktuj się z rekrutacją",
+    },
+
+    jobs: {
+      eyebrow: "Aktualne oferty pracy",
+
+      title: "Znajdź dostępne oferty pracy w Polsce.",
+
+      description:
+        "Przejrzyj nasze aktualne oferty pracy i znajdź zatrudnienie dopasowane do Twoich umiejętności, doświadczenia oraz dyspozycyjności.",
+
+      listings: [
+        {
+          title: "Operator wtryskarki",
+
+          meta: "Produkcja · Przemysł · Polska",
+
+          details: "Pełny etat · Praca zmianowa",
+        },
+
+        {
+          title: "Pracownik produkcji",
+
+          meta: "Produkcja · Polska",
+
+          details: "Pełny etat · Praca zmianowa",
+        },
+      ],
+
+      cta: "Zobacz wszystkie oferty",
+    },
+
+    why: {
+      eyebrow: "Dlaczego H&M Synergy",
+
+      title: "Proste i przejrzyste podejście do rekrutacji i zatrudnienia.",
+
+      items: [
+        {
+          title: "Poznajemy Twoje potrzeby",
+
+          description:
+            "Przed rozpoczęciem rekrutacji dokładnie poznajemy stanowisko, miejsce pracy, harmonogram oraz wymagania dotyczące pracowników.",
+        },
+
+        {
+          title: "Dopasowujemy kandydatów",
+
+          description:
+            "Szukamy kandydatów, których umiejętności, doświadczenie i dyspozycyjność odpowiadają wymaganiom danego stanowiska.",
+        },
+
+        {
+          title: "Wspieramy cały proces",
+
+          description:
+            "Pozostajemy dostępni, aby wspierać komunikację i koordynację pomiędzy pracodawcami i pracownikami podczas procesu zatrudnienia.",
+        },
+
+        {
+          title: "Stawiamy na jasną komunikację",
+
+          description:
+            "Przejrzysta komunikacja pomaga pracodawcom i kandydatom dobrze zrozumieć proces rekrutacji oraz kolejne kroki.",
+        },
+      ],
+    },
+
+    finalCta: {
+      title: "Znajdźmy odpowiednie rozwiązanie.",
+
+      description:
+        "Niezależnie od tego, czy jesteś pracodawcą szukającym pracowników, czy kandydatem szukającym pracy w Polsce, H&M Synergy jest gotowe Ci pomóc.",
+
+      cta: "Skontaktuj się z nami",
     },
   },
 };
