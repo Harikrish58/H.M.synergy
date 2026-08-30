@@ -1,480 +1,585 @@
-"use client";
-
-import React from "react";
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Handshake,
-  Truck,
-  Code2,
-  BarChart,
-  Rocket,
-} from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
-/* Framer variants (typed) */
-const container: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      ease: "easeOut" as const,
+import { homeContent } from "@/app/content/home";
+
+const content = homeContent.en;
+
+export const metadata: Metadata = {
+  title: content.seo.title,
+  description: content.seo.description,
+  keywords: content.seo.keywords,
+
+  alternates: {
+    canonical: "/en",
+    languages: {
+      en: "/en",
+      pl: "/pl",
     },
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "en_PL",
+    url: "/en",
+    siteName: "H&M Synergy",
+    title: content.seo.ogTitle,
+    description: content.seo.ogDescription,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "H&M Synergy — Jobs and Recruitment in Poland",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: content.seo.ogTitle,
+    description: content.seo.ogDescription,
+    images: ["/og-image.jpg"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-const item: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
+const primaryLink =
+  "group inline-flex items-center justify-center gap-2 bg-[#123B63] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#0E2942] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2";
 
-/* MOBILE visual: horizontal strip with gentle float */
-function HeroVisualMobile({
-  reduceMotion = false,
-}: {
-  reduceMotion?: boolean | null;
-}) {
-  const icons = [
-    { id: "truck", Icon: Truck, bg: "bg-blue-600" },
-    { id: "handshake", Icon: Handshake, bg: "bg-purple-600" },
-    { id: "code", Icon: Code2, bg: "bg-pink-600" },
-    { id: "chart", Icon: BarChart, bg: "bg-emerald-600" },
-  ];
+const secondaryLink =
+  "group inline-flex items-center justify-center gap-2 border border-[#123B63] bg-white px-6 py-3.5 text-sm font-semibold text-[#123B63] transition-all duration-200 hover:bg-[#EAF3FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2";
 
+const textLink =
+  "group inline-flex items-center gap-2 text-sm font-semibold text-[#123B63] transition-colors hover:text-[#159A86] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2";
+
+const sectionLabel =
+  "text-xs font-bold uppercase tracking-[0.18em] text-[#159A86]";
+
+const sectionTitle =
+  "text-3xl font-bold leading-tight tracking-[-0.035em] text-[#0E2942] sm:text-4xl lg:text-[2.65rem]";
+
+const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
+
+export default function HomePage() {
   return (
-    <div className="w-full md:hidden flex justify-center mt-8">
-      <div className="flex items-center gap-4">
-        {icons.map(({ id, Icon, bg }, i) => (
-          <motion.span
-            key={id}
-            aria-hidden="true"
-            className={`p-3 rounded-xl ${bg} text-white shadow-lg`}
-            animate={reduceMotion ? {} : { y: [0, -6, 0] }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }
-            }
-          >
-            <Icon className="h-6 w-6" />
-          </motion.span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* DESKTOP visual: polished horizontal zig-zag with pro motion + a11y */
-function HeroVisualDesktop({
-  reduceMotion = false,
-}: {
-  reduceMotion?: boolean | null;
-}) {
-  const chips = [
-    { id: "truck",     label: "Logistics", Icon: Truck,     bg: "bg-blue-600",    y0: -8,  delay: 0.00 },
-    { id: "handshake", label: "Partnership", Icon: Handshake, bg: "bg-purple-600",  y0: 6,   delay: 0.10 },
-    { id: "code",      label: "Development", Icon: Code2,     bg: "bg-pink-600",    y0: -10, delay: 0.20 },
-    { id: "chart",     label: "Analytics",   Icon: BarChart,  bg: "bg-emerald-600", y0: 5,   delay: 0.30 },
-  ];
-
-  return (
-    <div className="flex-1 hidden md:flex justify-center">
-      <div
-        className="
-          relative w-[540px] h-[240px]
-          rounded-2xl overflow-hidden
-          bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl
-          ring-1 ring-gray-200/70 dark:ring-white/10
-          shadow-[0_8px_30px_rgb(0,0,0,0.06)]
-        "
+    <main className="overflow-hidden bg-white text-[#182230]">
+      {/* =========================================================
+    HERO — LIGHT GRAY
+========================================================= */}
+      <section
+        aria-labelledby="hero-title"
+        className="overflow-hidden border-b border-[#DCE4EB] bg-[#F5F8FA]"
       >
-        {/* soft gradient wash */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-70 blur-2xl pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(60% 60% at 85% 15%, rgba(99,102,241,.20) 0%, transparent 60%), radial-gradient(60% 60% at 15% 85%, rgba(236,72,153,.18) 0%, transparent 60%)",
-          }}
-        />
-
-        {/* horizontal row */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <ul role="list" className="flex items-center gap-7">
-            {chips.map(({ id, label, Icon, bg, y0, delay }) => (
-              <li key={id}>
-                <motion.span
+        <div className="mx-auto grid max-w-[1280px] lg:h-[calc(100dvh-90px)] lg:grid-cols-[1.02fr_0.98fr]">
+          {/* Hero content */}
+          <div className="flex min-h-0 flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:px-8 lg:py-8 xl:pr-16">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3">
+                <span
+                  className="h-px w-8 shrink-0 bg-[#159A86]"
                   aria-hidden="true"
-                  className={`
-                    group relative inline-flex h-14 w-14 items-center justify-center
-                    ${bg} text-white rounded-xl
-                    shadow-sm ring-1 ring-white/20
-                    transition-transform
-                    will-change-transform
-                  `}
-                  style={{ translateY: y0 }}
-                  whileHover={
-                    reduceMotion ? undefined : { scale: 1.04, y: y0 - 2 }
-                  }
-                  animate={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          // small, calm bob with mirrored loop + tiny lateral sway
-                          y: [y0, y0 - 10, y0, y0 + 10, y0],
-                          x: [-3, 3, -3, 3, -3],
-                        }
-                  }
-                  transition={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          duration: 3.6,
-                          repeat: Infinity,
-                          repeatType: "mirror",
-                          ease: [0.25, 0.1, 0.25, 1], // standard ease
-                          delay,
-                        }
-                  }
-                >
-                  <Icon className="h-7 w-7" />
-                  {/* hidden accessible label (icons are decorative visually) */}
-                  <span className="sr-only">{label}</span>
+                />
 
-                  {/* subtle inner highlight for depth */}
-                  <span className="
-                    pointer-events-none absolute inset-0 rounded-xl
-                    ring-1 ring-white/10
-                    shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)]
-                  " />
-                </motion.span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
+                <p className={sectionLabel}>{content.hero.eyebrow}</p>
+              </div>
 
-
-
-export default function LandingPageEN() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300 relative overflow-hidden">
-      {/* Skip Link */}
-      <a
-        href="#services"
-        className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-4 focus:left-4 focus:bg-white dark:focus:bg-gray-900 focus:text-blue-600 dark:focus:text-blue-300 focus:ring-2 focus:ring-blue-600 rounded px-3 py-2 shadow"
-      >
-        Skip to services
-      </a>
-
-      {/* Animated Background Blobs */}
-      <motion.div
-        animate={
-          shouldReduceMotion ? {} : { scale: [1, 1.1, 1], rotate: [0, 6, -6, 0] }
-        }
-        transition={{ duration: 12, repeat: Infinity, repeatType: "mirror" }}
-        className="absolute top-[-10rem] left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-gradient-to-tr from-blue-300/25 via-purple-300/25 to-pink-300/25 rounded-full blur-3xl opacity-20 dark:from-blue-950/25 dark:via-purple-900/25 pointer-events-none"
-      />
-      <motion.div
-        animate={shouldReduceMotion ? {} : { x: [0, 30, -30, 0], y: [0, 20, -20, 0] }}
-        transition={{ duration: 14, repeat: Infinity, repeatType: "mirror" }}
-        className="absolute bottom-0 right-0 w-[32rem] h-[32rem] bg-gradient-to-br from-pink-200/25 via-blue-200/25 to-purple-200/25 rounded-full blur-3xl opacity-15 dark:from-pink-950/25 dark:via-blue-900/25 pointer-events-none"
-      />
-
-      {/* Hero Section */}
-      <section className="relative max-w-7xl mx-auto px-6 pt-28 pb-20 md:pt-36 md:pb-24 flex flex-col md:flex-row items-center gap-12">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex-1 text-center md:text-left"
-        >
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
-            H&M Synergy
-          </h1>
-          <p className="mb-8 text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-200 max-w-2xl">
-            Transform your operations with expert logistics, business growth, and
-            cutting-edge web solutions.{" "}<br />
-            <span className="font-bold text-blue-600 dark:text-blue-400">
-              Your success, our precision.
-            </span>
-          </p>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-            <Link
-              href="/en/contact"
-              className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-              aria-label="Start Your Journey"
-            >
-              Start Your Journey
-              <motion.span
-                className="ml-2 inline-block"
-                animate={shouldReduceMotion ? {} : { x: [0, 6, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                aria-hidden="true"
+              <h1
+                id="hero-title"
+                className="mt-5 text-4xl font-bold leading-[1.06] tracking-[-0.045em] text-[#0E2942] sm:text-5xl lg:text-[3.5rem] xl:text-[4.2rem]"
               >
-                <ArrowRight className="h-5 w-5" />
-              </motion.span>
-            </Link>
-            <Link
-              href="#services"
-              className="inline-flex items-center px-8 py-4 rounded-xl bg-white text-gray-900 font-semibold border border-gray-200 hover:bg-blue-50 hover:border-blue-300 transition-all hover:scale-105 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-gray-700"
-              aria-label="Discover Our Services"
-            >
-              Discover Services
-            </Link>
-          </div>
-        </motion.div>
+                {content.hero.title}
+              </h1>
 
-        {/* Visuals: mobile row + desktop cluster */}
-        <HeroVisualMobile reduceMotion={shouldReduceMotion} />
-        <HeroVisualDesktop reduceMotion={shouldReduceMotion} />
+              <p className="mt-6 max-w-xl text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8">
+                {content.hero.description}
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link href="/en/employers" className={primaryLink}>
+                  {content.hero.employerCta}
+
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+
+                <Link href="/en/employees" className={secondaryLink}>
+                  {content.hero.employeeCta}
+
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </div>
+
+              <div className="mt-7 flex flex-wrap gap-x-7 gap-y-3 border-t border-[#DCE4EB] pt-5">
+                {content.hero.areas.map((area) => (
+                  <div key={area} className="flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 bg-[#159A86]"
+                      aria-hidden="true"
+                    />
+
+                    <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5B6878]">
+                      {area}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Hero image */}
+          <div className="relative min-h-[360px] overflow-hidden border-t border-[#DCE4EB] lg:min-h-0 lg:border-l lg:border-t-0">
+            <Image
+              src="/images/manufacturing-workforce-hero.png"
+              alt="Workers in a professional manufacturing and production environment"
+              fill
+              priority
+              sizes="(min-width: 1024px) 49vw, 100vw"
+              className="object-cover"
+            />
+
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-[#0E2942]/15 via-transparent to-[#0E2942]/5"
+              aria-hidden="true"
+            />
+
+            <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8">
+              <div className="max-w-sm border border-white/20 bg-[#0E2942]/90 p-5 backdrop-blur-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8FD8CA]">
+                  {content.hero.imageLabel}
+                </p>
+
+                <p className="mt-2 text-base font-semibold leading-6 text-white">
+                  {content.hero.imageDescription}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Services Preview */}
+      {/* =========================================================
+          COMPANY — WHITE
+      ========================================================= */}
+      <section
+        aria-labelledby="company-title"
+        className="border-b border-[#E2E8EF] bg-white"
+      >
+        <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
+          <div>
+            <p className={sectionLabel}>{content.company.eyebrow}</p>
+
+            <div
+              className="mt-8 hidden h-px w-20 bg-[#DCE4EB] lg:block"
+              aria-hidden="true"
+            />
+          </div>
+
+          <div>
+            <h2 id="company-title" className={sectionTitle}>
+              {content.company.title}
+            </h2>
+
+            <p className={`mt-6 max-w-2xl ${bodyText}`}>
+              {content.company.description}
+            </p>
+
+            <Link href="/en/about" className={`${textLink} mt-8`}>
+              {content.company.cta}
+
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          SERVICES — LIGHT GRAY
+      ========================================================= */}
       <section
         id="services"
-        aria-labelledby="services-heading"
-        className="relative max-w-7xl mx-auto px-6 py-16 md:py-24"
+        aria-labelledby="services-title"
+        className="border-b border-[#E2E8EF] bg-[#F7F9FB] px-6 py-20 sm:px-10 lg:px-8 lg:py-28"
       >
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <motion.h2
-            id="services-heading"
-            variants={item}
-            className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-gray-100 tracking-tight mb-4"
-          >
-            Our Expertise, Your Advantage
-          </motion.h2>
-          <motion.p
-            variants={item}
-            className="text-lg md:text-xl text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12"
-          >
-            Tailored solutions in logistics, business growth, and web development to drive efficiency and success.
-          </motion.p>
+        <div className="mx-auto max-w-[1280px]">
+          <p className={sectionLabel}>{content.services.eyebrow}</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <motion.article
-              aria-labelledby="svc-logistics"
-              variants={item}
-              whileHover={
-                shouldReduceMotion ? {} : { scale: 1.05, y: -8, transition: { duration: 0.3 } }
-              }
-              className="relative group rounded-2xl p-[2px] bg-gradient-to-br from-purple-400/50 via-blue-400/40 to-pink-400/50 shadow-sm"
-              tabIndex={0}
-            >
-              <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg p-8 rounded-2xl h-full ring-1 ring-gray-100 dark:ring-gray-800">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-900 group-hover:bg-purple-100 dark:group-hover:bg-purple-800 transition">
-                    <Truck className="h-8 w-8 text-purple-600 dark:text-purple-300" aria-hidden="true" />
-                  </div>
-                  <h3 id="svc-logistics" className="text-xl font-semibold text-gray-900 dark:text-gray-50">
-                    Logistics Coordination
-                  </h3>
-                </div>
-                <p className="mt-4 text-gray-700 dark:text-gray-200">
-                  Streamline your supply chain with expert transport sourcing, precise scheduling, and real-time KPI tracking.
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-emerald-600" aria-hidden="true" />
-                    Optimized route and capacity planning
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-emerald-600" aria-hidden="true" />
-                    Full compliance with customer protocols
-                  </li>
-                </ul>
-                <div className="mt-6 flex items-center justify-end">
-                  <Link
-                    href="/en/logistics"
-                    className="text-blue-600 font-semibold hover:underline"
-                    aria-label="Learn More About Logistics Coordination"
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-            </motion.article>
-
-            {/* Card 2 */}
-            <motion.article
-              aria-labelledby="svc-business"
-              variants={item}
-              whileHover={
-                shouldReduceMotion ? {} : { scale: 1.05, y: -8, transition: { duration: 0.3 } }
-              }
-              className="relative group rounded-2xl p-[2px] bg-gradient-to-br from-blue-400/50 via-indigo-400/40 to-cyan-400/50 shadow-sm"
-              tabIndex={0}
-            >
-              <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg p-8 rounded-2xl h-full ring-1 ring-gray-100 dark:ring-gray-800">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900 group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition">
-                    <Handshake className="h-8 w-8 text-blue-600 dark:text-blue-300" aria-hidden="true" />
-                  </div>
-                  <h3 id="svc-business" className="text-xl font-semibold text-gray-900 dark:text-gray-50">
-                    Business Growth
-                  </h3>
-                </div>
-                <p className="mt-4 text-gray-700 dark:text-gray-200">
-                  Fuel expansion with strategic outreach, competitive pricing, and data-driven insights for sustained growth.
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-emerald-600" aria-hidden="true" />
-                    Targeted client outreach and tenders
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-emerald-600" aria-hidden="true" />
-                    Comprehensive sales and KPI reports
-                  </li>
-                </ul>
-                <div className="mt-6 flex items-center justify-end">
-                  <Link
-                    href="/en/business"
-                    className="text-blue-600 font-semibold hover:underline"
-                    aria-label="Learn More About Business Growth"
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-            </motion.article>
-
-            {/* Card 3 */}
-            <motion.article
-              aria-labelledby="svc-it"
-              variants={item}
-              whileHover={
-                shouldReduceMotion ? {} : { scale: 1.05, y: -8, transition: { duration: 0.3 } }
-              }
-              className="relative group rounded-2xl p-[2px] bg-gradient-to-br from-pink-400/50 via-rose-400/40 to-purple-400/50 shadow-sm"
-              tabIndex={0}
-            >
-              <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg p-8 rounded-2xl h-full ring-1 ring-gray-100 dark:ring-gray-800">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 rounded-xl bg-pink-50 dark:bg-pink-900 group-hover:bg-pink-100 dark:group-hover:bg-pink-800 transition">
-                    <Code2 className="h-8 w-8 text-pink-600 dark:text-pink-200" aria-hidden="true" />
-                  </div>
-                  <h3 id="svc-it" className="text-xl font-semibold text-gray-900 dark:text-gray-50">
-                    Web & IT Solutions
-                  </h3>
-                </div>
-                <p className="mt-4 text-gray-700 dark:text-gray-200">
-                  Build scalable, user-friendly websites and APIs with React, Next.js, and TypeScript for lasting impact.
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-emerald-600" aria-hidden="true" />
-                    Responsive and accessible interfaces
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-emerald-600" aria-hidden="true" />
-                    Robust CI/CD and testing pipelines
-                  </li>
-                </ul>
-                <div className="mt-6 flex items-center justify-end">
-                  <Link
-                    href="/en/it"
-                    className="text-blue-600 font-semibold hover:underline"
-                    aria-label="Learn More About Web and IT Solutions"
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-            </motion.article>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Why Us */}
-      <section className="relative max-w-7xl mx-auto px-6 py-16 md:py-24">
-        <div className="bg-gradient-to-r from-white/95 to-blue-50/95 dark:from-gray-900/95 dark:to-gray-800/95 backdrop-blur-lg rounded-2xl shadow-xl ring-1 ring-blue-100/50 dark:ring-gray-800 p-10 md:p-14">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Why Partner with H&M Synergy?
+          <div className="mt-5 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="max-w-3xl">
+              <h2 id="services-title" className={sectionTitle}>
+                {content.services.title}
               </h2>
-              <p className="mt-4 text-lg text-gray-700 dark:text-gray-200">
-                We deliver measurable results through clear communication, streamlined processes, and a commitment to your success.
-              </p>
-              <ul className="mt-6 space-y-4">
-                {[
-                  "Clear project scope and timelines",
-                  "Agile workflows for rapid results",
-                  "Detailed KPI reports and insights",
-                  "Bilingual support in English and Polish",
-                ].map((line) => (
-                  <li key={line} className="flex items-start gap-3 text-gray-800 dark:text-gray-100">
-                    <CheckCircle2 className="h-6 w-6 mt-0.5 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900">
-                    <Rocket className="h-6 w-6 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-50">
-                    Our Proven 4-Step Process
-                  </h3>
+              <p className={`mt-5 max-w-2xl ${bodyText}`}>
+                {content.services.description}
+              </p>
+            </div>
+
+            <Link href="/en/services" className={`${textLink} shrink-0`}>
+              {content.services.cta}
+
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+
+          <div className="mt-14 grid border-t border-[#DCE4EB] md:grid-cols-3">
+            {content.services.items.map((service, index) => (
+              <article
+                key={service.title}
+                className="border-b border-[#DCE4EB] py-9 md:border-b-0 md:px-8 md:first:pl-0 md:[&:not(:last-child)]:border-r md:last:pr-0"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-[#159A86]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <ArrowRight
+                    className="h-4 w-4 text-[#A3AFBB]"
+                    aria-hidden="true"
+                  />
                 </div>
-                <ol className="mt-4 space-y-4 text-gray-700 dark:text-gray-200 list-decimal list-inside">
-                  <li>Discovery call to define your goals</li>
-                  <li>Tailored plan and swift kickoff</li>
-                  <li>Weekly progress updates and iteration</li>
-                  <li>Delivery with comprehensive documentation</li>
-                </ol>
-              </div>
-            </motion.div>
+
+                <h3 className="mt-7 text-xl font-bold text-[#0E2942]">
+                  {service.title}
+                </h3>
+
+                <p className="mt-4 max-w-md leading-7 text-[#5B6878]">
+                  {service.description}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="relative max-w-7xl mx-auto px-6 pb-24 md:pb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-10 shadow-xl"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Elevate Your Business?
+      {/* =========================================================
+          MANUFACTURING — WHITE
+      ========================================================= */}
+      <section
+        aria-labelledby="manufacturing-title"
+        className="border-b border-[#E2E8EF] bg-white"
+      >
+        <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
+          <div>
+            <p className={sectionLabel}>{content.manufacturing.eyebrow}</p>
+
+            <div className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
+              Manufacturing and production are key areas of our recruitment
+              activity.
+            </div>
+          </div>
+
+          <div>
+            <h2 id="manufacturing-title" className={sectionTitle}>
+              {content.manufacturing.title}
+            </h2>
+
+            <p className={`mt-6 max-w-2xl ${bodyText}`}>
+              {content.manufacturing.description}
+            </p>
+
+            <ul className="mt-10 border-y border-[#DCE4EB]">
+              {content.manufacturing.positions.map((position, index) => (
+                <li
+                  key={position}
+                  className="flex items-center justify-between gap-6 border-b border-[#DCE4EB] py-5 last:border-b-0"
+                >
+                  <div className="flex items-center gap-5">
+                    <span className="text-xs font-bold tracking-[0.1em] text-[#159A86]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span className="text-sm font-bold uppercase tracking-[0.06em] text-[#182230]">
+                      {position}
+                    </span>
+                  </div>
+
+                  <Check
+                    className="h-4 w-4 shrink-0 text-[#159A86]"
+                    aria-hidden="true"
+                  />
+                </li>
+              ))}
+            </ul>
+
+            <Link href="/en/jobs" className={`${textLink} mt-8`}>
+              {content.manufacturing.cta}
+
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          EMPLOYERS — LIGHT GRAY
+      ========================================================= */}
+      <section
+        aria-labelledby="employers-title"
+        className="border-b border-[#E2E8EF] bg-[#F7F9FB] px-6 py-20 sm:px-10 lg:px-8 lg:py-28"
+      >
+        <div className="mx-auto max-w-[1280px]">
+          <p className={sectionLabel}>{content.employers.eyebrow}</p>
+
+          <div className="mt-6 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+            <div>
+              <h2 id="employers-title" className={sectionTitle}>
+                {content.employers.title}
+              </h2>
+
+              <p className={`mt-6 max-w-xl ${bodyText}`}>
+                {content.employers.description}
+              </p>
+
+              <Link href="/en/employers" className={`${primaryLink} mt-8`}>
+                {content.employers.cta}
+
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
+
+            <ol className="border-t border-[#DCE4EB]">
+              {content.employers.steps.map((step, index) => (
+                <li
+                  key={step}
+                  className="grid grid-cols-[48px_1fr] gap-4 border-b border-[#DCE4EB] py-6"
+                >
+                  <span className="text-sm font-bold text-[#159A86]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <span className="text-lg font-semibold leading-7 text-[#182230]">
+                    {step}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          EMPLOYEES — WHITE
+      ========================================================= */}
+      <section
+        aria-labelledby="employees-title"
+        className="border-b border-[#E2E8EF] bg-white"
+      >
+        <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
+          <div>
+            <p className={sectionLabel}>{content.employees.eyebrow}</p>
+
+            <div className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
+              Opportunities for people at different stages of their careers.
+            </div>
+          </div>
+
+          <div>
+            <h2 id="employees-title" className={sectionTitle}>
+              {content.employees.title}
+            </h2>
+
+            <p className={`mt-6 max-w-2xl ${bodyText}`}>
+              {content.employees.description}
+            </p>
+
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+              {content.employees.audience.map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-3 border border-[#E2E8EF] bg-[#F7F9FB] p-4"
+                >
+                  <Check
+                    className="mt-0.5 h-4 w-4 shrink-0 text-[#159A86]"
+                    aria-hidden="true"
+                  />
+
+                  <span className="text-sm font-semibold leading-6 text-[#182230]">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/en/jobs" className={primaryLink}>
+                {content.employees.jobsCta}
+
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+
+              <Link href="/en/contact" className={secondaryLink}>
+                {content.employees.contactCta}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          JOBS — LIGHT GRAY
+      ========================================================= */}
+      <section
+        aria-labelledby="jobs-title"
+        className="border-b border-[#E2E8EF] bg-[#F7F9FB] px-6 py-20 sm:px-10 lg:px-8 lg:py-28"
+      >
+        <div className="mx-auto max-w-[1280px]">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="max-w-3xl">
+              <p className={sectionLabel}>{content.jobs.eyebrow}</p>
+
+              <h2 id="jobs-title" className={`mt-5 ${sectionTitle}`}>
+                {content.jobs.title}
+              </h2>
+
+              <p className={`mt-5 max-w-2xl ${bodyText}`}>
+                {content.jobs.description}
+              </p>
+            </div>
+
+            <Link href="/en/jobs" className={`${textLink} shrink-0`}>
+              {content.jobs.cta}
+
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+
+          <div className="mt-12 border-t border-[#DCE4EB]">
+            {content.jobs.listings.map((job) => (
+              <article
+                key={job.title}
+                className="grid gap-5 border-b border-[#DCE4EB] py-7 md:grid-cols-[1.15fr_0.7fr_0.8fr_auto] md:items-center md:gap-8"
+              >
+                <div>
+                  <h3 className="text-xl font-bold text-[#0E2942]">
+                    {job.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm text-[#8A96A3] md:hidden">
+                    {job.meta}
+                  </p>
+                </div>
+
+                <p className="hidden text-sm text-[#5B6878] md:block">
+                  {job.meta}
+                </p>
+
+                <p className="text-sm text-[#5B6878]">{job.details}</p>
+
+                <Link
+                  href="/en/jobs"
+                  className={`${textLink} justify-self-start md:justify-self-end`}
+                >
+                  View position
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          WHY H&M SYNERGY — WHITE
+      ========================================================= */}
+      <section
+        aria-labelledby="why-title"
+        className="border-b border-[#E2E8EF] bg-white"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 lg:px-8 lg:py-28">
+          <p className={sectionLabel}>{content.why.eyebrow}</p>
+
+          <h2 id="why-title" className={`mt-5 max-w-2xl ${sectionTitle}`}>
+            {content.why.title}
           </h2>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8">
-            Share your vision with us, and we’ll craft a customized plan to achieve your goals efficiently and effectively.
-          </p>
-          <Link
-            href="/en/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-all hover:scale-105 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-            aria-label="Contact Us Today"
-          >
-            Contact Us<ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+
+          <div className="mt-12 grid border-t border-[#DCE4EB] sm:grid-cols-2 lg:grid-cols-4">
+            {content.why.items.map((item, index) => (
+              <article
+                key={item.title}
+                className="border-b border-[#DCE4EB] py-8 sm:px-6 sm:first:pl-0 lg:border-b-0 lg:[&:not(:last-child)]:border-r lg:last:pr-0"
+              >
+                <span className="text-sm font-bold text-[#159A86]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <h3 className="mt-6 text-lg font-bold text-[#0E2942]">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-[#5B6878]">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          FINAL CTA — LIGHT GRAY
+      ========================================================= */}
+      <section
+        aria-labelledby="final-cta-title"
+        className="border-b border-[#DCE4EB] bg-[#F5F8FA] px-6 py-20 sm:px-10 lg:px-8 lg:py-24"
+      >
+        <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-10 md:flex-row md:items-end">
+          <div>
+            <p className={sectionLabel}>H&M Synergy</p>
+
+            <h2
+              id="final-cta-title"
+              className="mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-[#0E2942] sm:text-4xl lg:text-[2.8rem]"
+            >
+              {content.finalCta.title}
+            </h2>
+
+            <p className={`mt-5 max-w-2xl ${bodyText}`}>
+              {content.finalCta.description}
+            </p>
+          </div>
+
+          <Link href="/en/contact" className={`${primaryLink} shrink-0`}>
+            {content.finalCta.cta}
+
+            <ArrowRight
+              className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+              aria-hidden="true"
+            />
           </Link>
-        </motion.div>
+        </div>
       </section>
     </main>
   );

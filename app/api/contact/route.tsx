@@ -11,9 +11,9 @@ const ContactSchema = z.object({
   email: z.string().email(),
   phone: z.string().max(60).optional().or(z.literal("")),
   company: z.string().max(120).optional().or(z.literal("")),
-  message: z.string().min(3).max(5000), // allow quick tests
+  message: z.string().min(3).max(5000),
   consent: z.boolean(),
-  website: z.string().optional().or(z.literal("")), // honeypot
+  website: z.string().optional().or(z.literal("")),
 });
 
 export async function POST(req: NextRequest) {
@@ -23,16 +23,26 @@ export async function POST(req: NextRequest) {
 
     if (!parsed.success) {
       const issues = parsed.error.flatten().fieldErrors;
+
       return NextResponse.json(
-        { error: "Invalid payload", issues },
-        { status: 400 }
+        {
+          error: "Invalid payload",
+          issues,
+        },
+        { status: 400 },
       );
     }
 
     const data = parsed.data;
 
-    // Honeypot: quietly succeed if filled
-    if (data.website) return NextResponse.json({ ok: true });
+    // Honeypot
+    if (data.website) {
+      return NextResponse.json({ ok: true });
+    }
+
+    // ---------------------------------------------------------
+    // ENVIRONMENT
+    // ---------------------------------------------------------
 
     const {
       SMTP_HOST,
@@ -40,28 +50,46 @@ export async function POST(req: NextRequest) {
       SMTP_USER,
       SMTP_PASS,
       CONTACT_TO = SMTP_USER,
-      CONTACT_FROM = SMTP_USER, // for Gmail this usually must equal SMTP_USER
+      CONTACT_FROM = SMTP_USER,
       NODE_ENV,
     } = process.env;
 
-    // Dev convenience: log instead of failing if SMTP not set
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !CONTACT_TO) {
       if (NODE_ENV !== "production") {
-        console.warn("[contact] Missing SMTP env; payload:", data);
-        return NextResponse.json({ ok: true, dev: true });
+        console.warn("[contact] Missing SMTP environment variables.");
+        console.warn("[contact] Payload:", data);
+
+        return NextResponse.json({
+          ok: true,
+          dev: true,
+        });
       }
+
       return NextResponse.json(
-        { error: "Server email not configured." },
-        { status: 500 }
+        {
+          error: "Server email not configured.",
+        },
+        { status: 500 },
       );
     }
+
+    // ---------------------------------------------------------
+    // SMTP
+    // ---------------------------------------------------------
 
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
       port: Number(SMTP_PORT),
       secure: Number(SMTP_PORT) === 465,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
+      auth: {
+        user: SMTP_USER,
+        pass: SMTP_PASS,
+      },
     });
+
+    // ---------------------------------------------------------
+    // COMPANY EMAIL
+    // ---------------------------------------------------------
 
     const subject =
       data.locale === "pl"
@@ -80,61 +108,153 @@ export async function POST(req: NextRequest) {
     ].join("\n");
 
     const adminHtml = `
-      <h2>${escapeHtml(subject)}</h2>
-      <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-      <p><strong>Phone:</strong> ${escapeHtml(data.phone || "-")}</p>
-      <p><strong>Company:</strong> ${escapeHtml(data.company || "-")}</p>
-      <p><strong>Locale:</strong> ${escapeHtml(data.locale)}</p>
-      <hr />
-      <pre style="white-space:pre-wrap;margin:0">${escapeHtml(
-        data.message
-      )}</pre>
+      <div style="font-family:Arial,sans-serif;line-height:1.6;">
+        <h2>${escapeHtml(subject)}</h2>
+
+        <p>
+          <strong>Name:</strong><br />
+          ${escapeHtml(data.name)}
+        </p>
+
+        <p>
+          <strong>Email:</strong><br />
+          ${escapeHtml(data.email)}
+        </p>
+
+        <p>
+          <strong>Phone:</strong><br />
+          ${escapeHtml(data.phone || "-")}
+        </p>
+
+        <p>
+          <strong>Company:</strong><br />
+          ${escapeHtml(data.company || "-")}
+        </p>
+
+        <p>
+          <strong>Language:</strong><br />
+          ${escapeHtml(data.locale)}
+        </p>
+
+        <hr />
+
+        <p>
+          <strong>Message:</strong>
+        </p>
+
+        <pre style="white-space:pre-wrap;font-family:Arial,sans-serif;">${escapeHtml(
+          data.message,
+        )}</pre>
+      </div>
     `;
 
-    // 1) Send to you
-    await transporter.sendMail({
-      to: CONTACT_TO,
-      from: CONTACT_FROM,
-      replyTo: data.email,
-      subject,
-      text: adminText,
-      html: adminHtml,
-    });
+    // ---------------------------------------------------------
+    // 1. SEND TO H&M SYNERGY
+    // ---------------------------------------------------------
 
-    // 2) Auto-reply to the sender (optional but nice)
-    const autoSubject =
-      data.locale === "pl"
-        ? "Dziękujemy za wiadomość — odpiszemy w 24h"
-        : "Thanks for your message — we’ll reply within 24h";
+    try {
+      await transporter.sendMail({
+        to: CONTACT_TO,
+        from: CONTACT_FROM,
+        replyTo: data.email,
+        subject,
+        text: adminText,
+        html: adminHtml,
+      });
 
-    const autoText =
-      (data.locale === "pl"
-        ? "Dziękujemy za kontakt. Odpowiemy w ciągu 24 godzin roboczych.\n\nTwoja wiadomość:\n"
-        : "Thanks for reaching out. We’ll reply within 24 business hours.\n\nYour message:\n") +
-      data.message;
+      console.log("[contact] Company notification sent successfully.");
+    } catch (error) {
+      console.error("[contact] Company notification email failed:", error);
 
-    await transporter.sendMail({
-      to: data.email,
-      from: CONTACT_FROM, // must be your mailbox
-      replyTo: CONTACT_TO, // replies come back to you
-      subject: autoSubject,
-      text: autoText,
-    });
+      // This is a real failure because we could not notify the company.
+      return NextResponse.json(
+        {
+          error: "Unable to send your message.",
+        },
+        { status: 500 },
+      );
+    }
 
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    const message =
-      err instanceof Error
-        ? err.message
-        : typeof err === "string"
-        ? err
-        : "Mail send failed";
-    console.error("[contact] sendMail failed:", err);
-    return NextResponse.json({ error: message }, { status: 500 });
+    // ---------------------------------------------------------
+    // 2. SEND AUTO-REPLY TO CUSTOMER
+    // ---------------------------------------------------------
+
+    try {
+      const autoSubject =
+        data.locale === "pl"
+          ? "Dziękujemy za wiadomość — H&M Synergy"
+          : "Thank you for contacting H&M Synergy";
+
+      const autoText =
+        data.locale === "pl"
+          ? [
+              "Dziękujemy za kontakt z H&M Synergy.",
+              "",
+              "Otrzymaliśmy Twoją wiadomość i skontaktujemy się z Tobą w ciągu 24 godzin roboczych.",
+              "",
+              "Twoja wiadomość:",
+              data.message,
+              "",
+              "H&M Synergy Sp. z o.o.",
+            ].join("\n")
+          : [
+              "Thank you for contacting H&M Synergy.",
+              "",
+              "We have received your message and our team will get back to you within 24 business hours.",
+              "",
+              "Your message:",
+              data.message,
+              "",
+              "H&M Synergy Sp. z o.o.",
+            ].join("\n");
+
+      await transporter.sendMail({
+        to: data.email,
+        from: CONTACT_FROM,
+        replyTo: CONTACT_TO,
+        subject: autoSubject,
+        text: autoText,
+      });
+
+      console.log("[contact] Auto-reply sent successfully.");
+    } catch (error) {
+      // IMPORTANT:
+      // Auto-reply failure should NOT make the form submission fail.
+      console.error("[contact] Auto-reply failed:", error);
+    }
+
+    // ---------------------------------------------------------
+    // SUCCESS
+    // ---------------------------------------------------------
+
+    return NextResponse.json(
+      {
+        ok: true,
+        message: "Message sent successfully.",
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("[contact] Unexpected error:", error);
+
+    return NextResponse.json(
+      {
+        error: "Something went wrong while processing your message.",
+      },
+      { status: 500 },
+    );
   }
 }
 
-function escapeHtml(s: string) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// ---------------------------------------------------------
+// HTML ESCAPE
+// ---------------------------------------------------------
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
