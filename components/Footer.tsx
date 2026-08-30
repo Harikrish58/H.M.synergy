@@ -30,7 +30,11 @@ const linkClass =
 export default function Footer() {
   const pathname = usePathname() || "/en";
 
-  const locale = pathname.startsWith("/pl") ? "pl" : "en";
+  const locale = pathname.startsWith("/pl") 
+    ? "pl" 
+    : pathname.startsWith("/ua") 
+    ? "ua" 
+    : "en";
   const base = `/${locale}`;
   const year = new Date().getFullYear();
 
@@ -70,6 +74,24 @@ export default function Footer() {
       rights: "All rights reserved.",
       backToTop: "Back to top",
     },
+
+    ua: {
+      navigation: "Навігація",
+      services: "Послуги",
+      contact: "Контакти",
+      company: "H&M Synergy Sp. z o.o.",
+      description:
+        "Рішення у сфері працевлаштування, рекрутингу та підтримки бізнесу для виробничих та операційних компаній у Польщі.",
+      address: "Адреса",
+      email: "E-mail",
+      phone: "Телефон",
+      legal: "Правова інформація",
+      privacy: "Політика конфіденційності",
+      terms: "Умови використання",
+      cookies: "Політика cookies",
+      rights: "Всі права захищені.",
+      backToTop: "Вгору",
+    },
   }[locale];
 
   const navigationLabels =
@@ -83,6 +105,16 @@ export default function Footer() {
           About: "O nas",
           Contact: "Kontakt",
         }
+      : locale === "ua"
+      ? {
+          Home: "Головна",
+          Services: "Послуги",
+          "For Employees": "Для працівників",
+          "For Employers": "Для роботодавців",
+          Jobs: "Вакансії",
+          About: "Про нас",
+          Contact: "Контакти",
+        }
       : null;
 
   const serviceLabels =
@@ -91,6 +123,12 @@ export default function Footer() {
           "Workforce Solutions": "Rozwiązania kadrowe",
           Logistics: "Logistyka",
           "IT & Web Applications": "IT i aplikacje internetowe",
+        }
+      : locale === "ua"
+      ? {
+          "Workforce Solutions": "Кадрові рішення",
+          Logistics: "Логістика",
+          "IT & Web Applications": "IT та веб-додатки",
         }
       : null;
 

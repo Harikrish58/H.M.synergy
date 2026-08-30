@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     languages: {
       en: "/en",
       pl: "/pl",
+      uk: "/ua",
     },
   },
 

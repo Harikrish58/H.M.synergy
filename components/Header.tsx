@@ -10,7 +10,11 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const pathname = usePathname() ?? "/pl";
-  const locale = pathname.startsWith("/en") ? "en" : "pl";
+  const locale = pathname.startsWith("/en")
+    ? "en"
+    : pathname.startsWith("/ua")
+      ? "ua"
+      : "pl";
   const base = `/${locale}`;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -94,6 +98,45 @@ export default function Header() {
       home: `${base}`,
       open: "Open menu",
       close: "Close menu",
+    },
+
+    ua: {
+      brand: "H&M SYNERGY",
+
+      nav: [
+        {
+          href: `${base}`,
+          label: "Головна",
+        },
+        {
+          href: `${base}/services`,
+          label: "Послуги",
+        },
+        {
+          href: `${base}/employees`,
+          label: "Для працівників",
+        },
+        {
+          href: `${base}/employers`,
+          label: "Для роботодавців",
+        },
+        {
+          href: `${base}/jobs`,
+          label: "Вакансії",
+        },
+        {
+          href: `${base}/about`,
+          label: "Про нас",
+        },
+        {
+          href: `${base}/contact`,
+          label: "Контакти",
+        },
+      ],
+
+      home: `${base}`,
+      open: "Відкрити меню",
+      close: "Закрити меню",
     },
   }[locale];
 

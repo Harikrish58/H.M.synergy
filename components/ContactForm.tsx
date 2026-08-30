@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-type Locale = "pl" | "en";
+type Locale = "pl" | "en" | "ua";
 
 type ContactCopy = {
   title: string;
@@ -34,7 +34,11 @@ const primaryButton =
 
 export default function ContactForm() {
   const pathname = usePathname() || "/pl";
-  const locale: Locale = pathname.startsWith("/en") ? "en" : "pl";
+  const locale: Locale = pathname.startsWith("/ua")
+    ? "ua"
+    : pathname.startsWith("/en")
+    ? "en"
+    : "pl";
 
   const content: Record<Locale, ContactCopy> = {
     pl: {
@@ -62,7 +66,7 @@ export default function ContactForm() {
 
     en: {
       title: "Tell us how we can help.",
-      subtitle: "We’ll get back within 24 business hours.",
+      subtitle: "We&apos;ll get back within 24 business hours.",
       name: "Full name",
       email: "Email",
       phone: "Phone",
@@ -73,13 +77,36 @@ export default function ContactForm() {
       send: "Send Message",
       sending: "Sending...",
       ok: "Thank you. Your message has been sent.",
-      fail: "We couldn’t send your message. Please try again.",
+      fail: "We couldn&apos;t send your message. Please try again.",
       topics: [
         "Hiring workers",
         "Finding a job",
         "Logistics services",
         "IT & Web Applications",
         "General enquiry",
+      ],
+    },
+
+    ua: {
+      title: "Розкажіть, чим ми можемо вам допомогти.",
+      subtitle: "Ми відповімо протягом 24 робочих годин.",
+      name: "Повне ім'я",
+      email: "Електронна пошта",
+      phone: "Телефон",
+      company: "Компанія",
+      topic: "Мене цікавить",
+      message: "Повідомлення",
+      consent: "Я даю згоду на зв'язок щодо мого запиту.",
+      send: "Надіслати повідомлення",
+      sending: "Надсилання...",
+      ok: "Дякуємо. Ваше повідомлення надіслано.",
+      fail: "Не вдалося надіслати повідомлення. Будь ласка, спробуйте ще раз.",
+      topics: [
+        "Наймання працівників",
+        "Пошук роботи",
+        "Логістичні послуги",
+        "ІТ та веб-додатки",
+        "Загальне запитання",
       ],
     },
   };
