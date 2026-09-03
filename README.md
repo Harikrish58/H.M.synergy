@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# H&M Synergy — Recruitment Platform
 
-## Getting Started
+A multilingual recruitment and employment agency platform developed for H&M Synergy in Poland.
 
-First, run the development server:
+The platform connects employers and job seekers and provides an administrative workflow for reviewing, translating, and publishing job vacancies.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application provides three main areas:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Public recruitment website
+- Employer vacancy submission
+- Protected administration dashboard
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The public website supports English, Polish, and Ukrainian.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+### Job Seekers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Browse available job vacancies
+- View detailed job information
+- View salary, working conditions, and requirements
+- Submit job applications
+- Upload CVs
+- Receive application confirmation by email
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Employers
 
-## Deploy on Vercel
+- Submit job vacancies online
+- Provide company and contact information
+- Specify job requirements and working conditions
+- Receive confirmation and administrative processing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Administration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Secure administrator authentication
+- Review employer submissions
+- Approve or reject vacancies
+- Convert approved submissions into public jobs
+- Create and edit job information
+- Save jobs as drafts
+- Publish jobs
+- Manage multilingual job content
+
+### AI-Assisted Translation
+
+The administration dashboard includes an AI-assisted translation workflow using the OpenAI API.
+
+An administrator can create a vacancy in one language and generate the missing English, Polish, and Ukrainian versions.
+
+Translations can be reviewed and edited before publication.
+
+## Technology Stack
+
+### Frontend
+
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- Lucide React
+
+### Backend
+
+- Next.js API Routes
+- Supabase
+- PostgreSQL
+- Supabase Authentication
+- PostgreSQL Row Level Security
+
+### Integrations
+
+- OpenAI API
+- SMTP email
+
+### Deployment
+
+- Netlify
+
+## Architecture
+
+The application uses the Next.js App Router with server and client components.
+
+Main application areas:
+
+```text
+Public Website
+    |
+    +-- English
+    +-- Polish
+    +-- Ukrainian
+    |
+    +-- Job Listings
+    +-- Job Details
+    +-- Job Applications
+
+Employer
+    |
+    +-- Vacancy Submission
+    |
+    +-- Supabase
+            |
+            +-- Admin Review
+
+Admin
+    |
+    +-- Authentication
+    +-- Submission Management
+    +-- Job Publishing
+    +-- AI Translation
+
+
+## Architecture
+
+- This project was developed with assistance from OpenAI Codex and ChatGPT.
+
+- AI tools were used for code generation, debugging, refactoring, technical problem solving, documentation, and development guidance.
+
+- The resulting application was integrated, configured, tested, and reviewed as part of the development process.
