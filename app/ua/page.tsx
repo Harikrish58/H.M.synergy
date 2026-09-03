@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
 import { homeContent } from "@/app/content/home";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const content = homeContent.ua;
 
@@ -68,24 +69,82 @@ const sectionTitle =
 
 const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
-export default function HomePage() {
+type DatabaseJob = {
+  id: string;
+  slug: string;
+  title_ua: string;
+  category: string;
+  location_ua: string;
+  employment_type: string;
+  shifts: string | null;
+};
+
+type HomeJob = {
+  id: string;
+  title: string;
+  meta: string;
+  details: string;
+  href: string;
+};
+
+const permanentJob: HomeJob = {
+  id: "permanent-injection-machine-operator",
+  title: "Оператор термопластавтомата",
+  meta: "Виробництво · Вроцлав, Польща",
+  details: "Повна зайнятість · Позмінна робота",
+  href: "/ua/jobs/injection-machine-operator",
+};
+
+async function getHomeJobs(): Promise<HomeJob[]> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("jobs")
+    .select(
+      `
+        id,
+        slug,
+        title_ua,
+        category,
+        location_ua,
+        employment_type,
+        shifts
+      `,
+    )
+    .eq("status", "published")
+    .order("created_at", { ascending: false })
+    .limit(2);
+
+  if (error) {
+    console.error("[home-ua] Failed to load jobs:", error);
+
+    return [permanentJob];
+  }
+
+  const databaseJobs = ((data ?? []) as DatabaseJob[]).map((job) => ({
+    id: job.id,
+    title: job.title_ua,
+    meta: `${job.category} · ${job.location_ua}`,
+    details: [job.employment_type, job.shifts].filter(Boolean).join(" · "),
+    href: `/ua/jobs/${job.slug}`,
+  }));
+
+  return [permanentJob, ...databaseJobs];
+}
+
+export default async function HomePage() {
+  const homeJobs = await getHomeJobs();
+
   return (
-    // Changed overflow-hidden to overflow-x-hidden to prevent vertical cropping on the page level
     <main className="overflow-x-hidden bg-white text-[#182230]">
       {/* =========================================================
-          HERO — LIGHT GRAY
+          HERO
       ========================================================= */}
       <section
         aria-labelledby="hero-title"
         className="w-full border-b border-[#DCE4EB] bg-[#F5F8FA]"
       >
-        {/* 
-          1. lg:min-h-[calc(100dvh-90px)] ensures it fills the desktop screen but GROWS if text is long.
-          2. flex flex-col lg:grid ensures it stacks cleanly on mobile before switching to a side-by-side grid.
-        */}
         <div className="mx-auto flex max-w-[1280px] flex-col lg:grid lg:min-h-[calc(100dvh-90px)] lg:grid-cols-[1.02fr_0.98fr]">
-          
-          {/* TEXT CONTAINER */}
           <div className="flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:px-8 lg:py-12 xl:pr-16">
             <div className="max-w-2xl">
               <div className="flex items-center gap-3">
@@ -93,6 +152,7 @@ export default function HomePage() {
                   className="h-px w-8 shrink-0 bg-[#159A86]"
                   aria-hidden="true"
                 />
+
                 <p className={sectionLabel}>{content.hero.eyebrow}</p>
               </div>
 
@@ -110,6 +170,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/ua/employers" className={primaryLink}>
                   {content.hero.employerCta}
+
                   <ArrowRight
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     aria-hidden="true"
@@ -118,6 +179,7 @@ export default function HomePage() {
 
                 <Link href="/ua/employees" className={secondaryLink}>
                   {content.hero.employeeCta}
+
                   <ArrowRight
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     aria-hidden="true"
@@ -132,6 +194,7 @@ export default function HomePage() {
                       className="h-1.5 w-1.5 shrink-0 bg-[#159A86]"
                       aria-hidden="true"
                     />
+
                     <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5B6878]">
                       {area}
                     </span>
@@ -141,20 +204,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* IMAGE CONTAINER */}
-          {/* 
-            1. h-[400px] sm:h-[500px] guarantees a solid height on mobile/tablet so it doesn't crop into a thin strip.
-            2. lg:h-auto lg:min-h-full forces the image to perfectly match the height of the text block on desktop.
-          */}
           <div className="relative h-[400px] w-full border-t border-[#DCE4EB] sm:h-[500px] lg:h-auto lg:min-h-full lg:border-l lg:border-t-0">
             <Image
               src="/images/manufacturing-workforce-hero.png"
-              alt="Робітники у професійному виробничому середовищі"
+              alt="Працівники у професійному виробничому середовищі"
               fill
               priority
               sizes="(min-width: 1024px) 49vw, 100vw"
-              // object-center ensures the middle of the image stays in frame even when scaling
-              className="object-cover object-center" 
+              className="object-cover object-center"
             />
 
             <div
@@ -178,7 +235,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          COMPANY — WHITE
+          COMPANY
       ========================================================= */}
       <section
         aria-labelledby="company-title"
@@ -216,7 +273,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          SERVICES — LIGHT GRAY
+          SERVICES
       ========================================================= */}
       <section
         id="services"
@@ -278,7 +335,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          MANUFACTURING — WHITE
+          MANUFACTURING
       ========================================================= */}
       <section
         aria-labelledby="manufacturing-title"
@@ -289,7 +346,8 @@ export default function HomePage() {
             <p className={sectionLabel}>{content.manufacturing.eyebrow}</p>
 
             <div className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
-              Виробництво та промисловість є ключовими напрямками нашої рекрутингової діяльності.
+              Виробництво та промисловість є важливими напрямами нашої
+              рекрутингової діяльності.
             </div>
           </div>
 
@@ -339,7 +397,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          EMPLOYERS — LIGHT GRAY
+          EMPLOYERS
       ========================================================= */}
       <section
         aria-labelledby="employers-title"
@@ -389,7 +447,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          EMPLOYEES — WHITE
+          EMPLOYEES
       ========================================================= */}
       <section
         aria-labelledby="employees-title"
@@ -400,7 +458,7 @@ export default function HomePage() {
             <p className={sectionLabel}>{content.employees.eyebrow}</p>
 
             <div className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
-              Можливості для людей на різних етапах їхньої кар&apos;єри.
+              Можливості для людей на різних етапах професійної кар&apos;єри.
             </div>
           </div>
 
@@ -450,7 +508,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          JOBS — LIGHT GRAY
+          CURRENT JOBS — DYNAMIC
       ========================================================= */}
       <section
         aria-labelledby="jobs-title"
@@ -471,8 +529,7 @@ export default function HomePage() {
             </div>
 
             <Link href="/ua/jobs" className={`${textLink} shrink-0`}>
-              {content.jobs.cta}
-
+              Переглянути всі вакансії
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                 aria-hidden="true"
@@ -481,9 +538,9 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 border-t border-[#DCE4EB]">
-            {content.jobs.listings.map((job) => (
+            {homeJobs.map((job) => (
               <article
-                key={job.title}
+                key={job.id}
                 className="grid gap-5 border-b border-[#DCE4EB] py-7 md:grid-cols-[1.15fr_0.7fr_0.8fr_auto] md:items-center md:gap-8"
               >
                 <div>
@@ -503,7 +560,7 @@ export default function HomePage() {
                 <p className="text-sm text-[#5B6878]">{job.details}</p>
 
                 <Link
-                  href="/ua/jobs"
+                  href={job.href}
                   className={`${textLink} justify-self-start md:justify-self-end`}
                 >
                   Переглянути вакансію
@@ -519,7 +576,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          WHY H&M SYNERGY — WHITE
+          WHY H&M SYNERGY
       ========================================================= */}
       <section
         aria-labelledby="why-title"
@@ -556,7 +613,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          FINAL CTA — LIGHT GRAY
+          FINAL CTA
       ========================================================= */}
       <section
         aria-labelledby="final-cta-title"

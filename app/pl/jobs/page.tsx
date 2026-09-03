@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PolishJobsPage from "@/components/PolishJobsPage";
+import JobsPage from "@/components/JobsPage";
 
 export const metadata: Metadata = {
   title:
@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     languages: {
       en: "/en/jobs",
       pl: "/pl/jobs",
+      uk: "/ua/jobs",
     },
   },
 
@@ -75,5 +76,5 @@ export const metadata: Metadata = {
 };
 
 export default function PolishJobsRoutePage() {
-  return <PolishJobsPage />;
+  return <JobsPage locale="pl" />;
 }

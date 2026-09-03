@@ -1,67 +1,59 @@
 import type { Metadata } from "next";
-import PolishEmployersPage from "@/components/PolishEmployersPage";
+import EmployersPage from "@/components/EmployersPage";
 
 export const metadata: Metadata = {
-  title: "Rekrutacja i pracownicy dla firm w Polsce | H&M Synergy",
+  title: "Zgłoś ofertę pracy | H&M Synergy",
   description:
-    "H&M Synergy pomaga pracodawcom w Polsce znaleźć odpowiednich pracowników do produkcji, przemysłu, magazynów, logistyki i innych stanowisk operacyjnych.",
+    "Zgłoś ofertę pracy do H&M Synergy i znajdź odpowiednich pracowników do produkcji, przemysłu, magazynowania, logistyki i innych stanowisk w Polsce.",
   keywords: [
     "agencja pracy Polska",
     "agencja zatrudnienia Polska",
-    "agencja rekrutacyjna Polska",
     "rekrutacja pracowników Polska",
-    "pracownicy dla firm Polska",
     "pracownicy produkcji Polska",
-    "operatorzy wtryskarek Polska",
     "pracownicy magazynowi Polska",
-    "pracownicy logistyki Polska",
-    "zatrudnianie pracowników Polska",
-    "pracownicy tymczasowi Polska",
-    "rekrutacja dla firm Polska",
+    "pracownicy logistyka Polska",
     "outsourcing pracowników Polska",
-    "H&M Synergy rekrutacja",
+    "zatrudnienie pracowników Polska",
+    "H&M Synergy",
   ],
-
   alternates: {
     canonical: "/pl/employers",
     languages: {
       en: "/en/employers",
       pl: "/pl/employers",
+      uk: "/ua/employers",
     },
   },
-
   openGraph: {
     type: "website",
     locale: "pl_PL",
     url: "/pl/employers",
     siteName: "H&M Synergy",
-    title: "Rekrutacja i pracownicy dla firm w Polsce | H&M Synergy",
+    title: "Zgłoś ofertę pracy | H&M Synergy",
     description:
-      "Rozwiązania rekrutacyjne i kadrowe dla pracodawców w Polsce — produkcja, przemysł, magazyny, logistyka i inne stanowiska operacyjne.",
+      "Zgłoś zapotrzebowanie na pracowników do H&M Synergy.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "H&M Synergy — Rekrutacja i pracownicy dla firm w Polsce",
+        alt: "H&M Synergy — Zgłoś ofertę pracy",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "Rekrutacja i pracownicy dla firm w Polsce | H&M Synergy",
+    title: "Zgłoś ofertę pracy | H&M Synergy",
     description:
-      "Znajdź odpowiednich pracowników do produkcji, przemysłu, magazynów, logistyki i innych stanowisk w Polsce.",
+      "Zgłoś zapotrzebowanie na pracowników do H&M Synergy.",
     images: ["/og-image.jpg"],
   },
-
   robots: {
     index: true,
     follow: true,
   },
 };
 
-export default function EmployersRoutePagePL() {
-  return <PolishEmployersPage />;
+export default function EmployersRoutePage() {
+  return <EmployersPage locale="pl" />;
 }

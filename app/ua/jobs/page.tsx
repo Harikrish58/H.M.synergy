@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import UkrainianJobsPage from "@/components/UkrainianJobsPage";
+import JobsPage from "@/components/JobsPage";
 
 export const metadata: Metadata = {
-  title: "Робота в Польщі | Виробництво, промисловість та робота для студентів | H&M Synergy",
+  title:
+    "Робота в Польщі | Виробництво, промисловість та робота для студентів | H&M Synergy",
 
   description:
     "Знайдіть актуальну роботу в Польщі з H&M Synergy: вакансії на виробництві, у промисловості, для операторів верстатів, на складах, у логістиці, а також можливості для студентів і випускників.",
@@ -75,5 +76,5 @@ export const metadata: Metadata = {
 };
 
 export default function UkrainianJobsRoutePage() {
-  return <UkrainianJobsPage />;
+  return <JobsPage locale="ua" />;
 }

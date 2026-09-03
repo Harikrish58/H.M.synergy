@@ -77,7 +77,7 @@ export default function InjectionMachineOperatorPage() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </a>
 
-                <Link href="/uk/jobs" className={secondaryButton}>
+                <Link href="/ua/jobs" className={secondaryButton}>
                   Усі вакансії
                 </Link>
               </div>
@@ -97,7 +97,6 @@ export default function InjectionMachineOperatorPage() {
                 нетто / год.
               </p>
 
-              {/* Student highlight */}
               <div className="mt-5 border-l-2 border-[#159A86] bg-[#F5F8FA] px-4 py-3">
                 <p className="text-sm font-bold text-[#0E2942]">
                   Запрошуємо студентів та випускників
@@ -122,9 +121,7 @@ export default function InjectionMachineOperatorPage() {
                 </div>
 
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">
-                    Робочі дні
-                  </span>
+                  <span className="text-sm text-[#5B6878]">Робочі дні</span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     5–6 днів / тиждень
@@ -377,12 +374,15 @@ export default function InjectionMachineOperatorPage() {
               </div>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link href="/uk/contact" className={primaryButton}>
+                <Link
+                  href="/ua/jobs/injection-machine-operator/apply"
+                  className={primaryButton}
+                >
                   Подати заявку
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
 
-                <Link href="/uk/jobs" className={secondaryButton}>
+                <Link href="/ua/jobs" className={secondaryButton}>
                   Усі вакансії
                 </Link>
               </div>
@@ -413,11 +413,10 @@ export default function InjectionMachineOperatorPage() {
           </div>
 
           <Link
-            href="/uk/contact"
+            href="/ua/contact"
             className="group inline-flex shrink-0 items-center justify-center gap-2 bg-[#123B63] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#0E2942] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2"
           >
             Зв’язатися з нами
-
             <ArrowRight
               className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
               aria-hidden="true"

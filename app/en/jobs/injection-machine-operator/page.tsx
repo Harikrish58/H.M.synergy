@@ -35,17 +35,13 @@ const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 export default function InjectionMachineOperatorPage() {
   return (
     <main className="overflow-hidden bg-white text-[#182230]">
-      {/* =========================================================
-          HERO
-      ========================================================= */}
-
+      {/* HERO */}
       <section className="border-b border-[#DCE4EB] bg-[#F5F8FA]">
         <div className="mx-auto max-w-[1280px] px-6 py-14 sm:px-10 lg:px-8 lg:py-20">
           <div className="grid gap-10 lg:grid-cols-[1fr_0.78fr] lg:items-end lg:gap-16">
             <div>
               <div className="flex items-center gap-3">
                 <span className="h-px w-8 bg-[#159A86]" />
-
                 <p className={sectionLabel}>Current vacancy</p>
               </div>
 
@@ -83,7 +79,6 @@ export default function InjectionMachineOperatorPage() {
               </div>
             </div>
 
-            {/* Salary / working conditions */}
             <div className="border border-[#DCE4EB] bg-white p-7 sm:p-8">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#159A86]">
                 Salary
@@ -97,7 +92,6 @@ export default function InjectionMachineOperatorPage() {
                 net / hour
               </p>
 
-              {/* Student highlight */}
               <div className="mt-5 border-l-2 border-[#159A86] bg-[#F5F8FA] px-4 py-3">
                 <p className="text-sm font-bold text-[#0E2942]">
                   Students &amp; graduates welcome
@@ -111,7 +105,9 @@ export default function InjectionMachineOperatorPage() {
 
               <div className="mt-7 border-t border-[#DCE4EB] pt-6">
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">Working hours</span>
+                  <span className="text-sm text-[#5B6878]">
+                    Working hours
+                  </span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     12 hours / day
@@ -119,7 +115,9 @@ export default function InjectionMachineOperatorPage() {
                 </div>
 
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">Working days</span>
+                  <span className="text-sm text-[#5B6878]">
+                    Working days
+                  </span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     5–6 days / week
@@ -131,20 +129,14 @@ export default function InjectionMachineOperatorPage() {
         </div>
       </section>
 
-      {/* =========================================================
-          IMAGE CAROUSEL
-      ========================================================= */}
-
+      {/* IMAGE CAROUSEL */}
       <section className="bg-[#0E2942]">
         <div className="mx-auto max-w-[1280px] px-6 py-8 sm:px-10 lg:px-8 lg:py-12">
           <JobImageCarousel />
         </div>
       </section>
 
-      {/* =========================================================
-          QUICK FACTS
-      ========================================================= */}
-
+      {/* QUICK FACTS */}
       <section className="border-b border-[#DCE4EB] bg-white">
         <div className="mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-8">
           <div className="grid divide-y divide-[#DCE4EB] sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
@@ -156,7 +148,9 @@ export default function InjectionMachineOperatorPage() {
                   Salary
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">25 PLN net/hour</p>
+                <p className="mt-2 font-bold text-[#0E2942]">
+                  25 PLN net/hour
+                </p>
               </div>
             </div>
 
@@ -168,7 +162,9 @@ export default function InjectionMachineOperatorPage() {
                   Working hours
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">12 hours/day</p>
+                <p className="mt-2 font-bold text-[#0E2942]">
+                  12 hours/day
+                </p>
               </div>
             </div>
 
@@ -180,7 +176,9 @@ export default function InjectionMachineOperatorPage() {
                   Working days
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">5–6 days/week</p>
+                <p className="mt-2 font-bold text-[#0E2942]">
+                  5–6 days/week
+                </p>
               </div>
             </div>
 
@@ -201,15 +199,14 @@ export default function InjectionMachineOperatorPage() {
         </div>
       </section>
 
-      {/* =========================================================
-          JOB DESCRIPTION
-      ========================================================= */}
-
+      {/* JOB DESCRIPTION */}
       <section className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
         <div>
           <p className={sectionLabel}>Job description</p>
 
-          <h2 className={`mt-5 ${sectionTitle}`}>Injection Machine Operator</h2>
+          <h2 className={`mt-5 ${sectionTitle}`}>
+            Injection Machine Operator
+          </h2>
         </div>
 
         <div className="space-y-5">
@@ -222,8 +219,8 @@ export default function InjectionMachineOperatorPage() {
           <p className={bodyText}>
             The position involves operating injection molding machines and
             supporting the production of plastic components. The operator is
-            responsible for monitoring the production process, handling finished
-            products and performing basic visual quality checks.
+            responsible for monitoring the production process, handling
+            finished products and performing basic visual quality checks.
           </p>
 
           <p className={bodyText}>
@@ -240,18 +237,16 @@ export default function InjectionMachineOperatorPage() {
         </div>
       </section>
 
-      {/* =========================================================
-          RESPONSIBILITIES / REQUIREMENTS
-      ========================================================= */}
-
+      {/* RESPONSIBILITIES / REQUIREMENTS */}
       <section className="border-y border-[#DCE4EB] bg-[#F5F8FA]">
         <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 lg:px-8 lg:py-28">
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
-            {/* Responsibilities */}
             <div>
               <p className={sectionLabel}>Responsibilities</p>
 
-              <h2 className={`mt-5 ${sectionTitle}`}>What you will do</h2>
+              <h2 className={`mt-5 ${sectionTitle}`}>
+                What you will do
+              </h2>
 
               <ul className="mt-9 border-t border-[#DCE4EB]">
                 {[
@@ -278,7 +273,6 @@ export default function InjectionMachineOperatorPage() {
               </ul>
             </div>
 
-            {/* Requirements */}
             <div>
               <p className={sectionLabel}>Requirements</p>
 
@@ -311,10 +305,7 @@ export default function InjectionMachineOperatorPage() {
         </div>
       </section>
 
-      {/* =========================================================
-          APPLICATION
-      ========================================================= */}
-
+      {/* APPLICATION */}
       <section id="apply" className="bg-white">
         <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 lg:px-8 lg:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.72fr_1fr] lg:gap-20">
@@ -363,7 +354,10 @@ export default function InjectionMachineOperatorPage() {
               </div>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link href="/en/contact" className={primaryButton}>
+                <Link
+                  href="/en/jobs/injection-machine-operator/apply"
+                  className={primaryButton}
+                >
                   Apply for this job
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -377,10 +371,7 @@ export default function InjectionMachineOperatorPage() {
         </div>
       </section>
 
-      {/* =========================================================
-          FINAL CTA
-      ========================================================= */}
-
+      {/* FINAL CTA */}
       <section className="border-t border-[#DCE4EB] bg-[#F5F8FA] px-6 py-20 sm:px-10 lg:px-8 lg:py-24">
         <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-10 md:flex-row md:items-end">
           <div>

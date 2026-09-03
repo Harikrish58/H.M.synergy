@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
 import { homeContent } from "@/app/content/home";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const content = homeContent.en;
 
@@ -67,9 +68,78 @@ const sectionTitle =
 
 const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
-export default function HomePage() {
+type DatabaseJob = {
+  id: string;
+  slug: string;
+  title_en: string;
+  category: string;
+  location_en: string;
+  employment_type: string;
+  shifts: string | null;
+};
+
+type HomeJob = {
+  id: string;
+  slug: string;
+  title: string;
+  meta: string;
+  details: string;
+  href: string;
+};
+
+const permanentJob: HomeJob = {
+  id: "permanent-injection-machine-operator",
+  slug: "injection-machine-operator",
+  title: "Injection Machine Operator",
+  meta: "Manufacturing · Wrocław, Poland",
+  details: "Full-time · Shift work",
+  href: "/en/jobs/injection-machine-operator",
+};
+
+async function getHomeJobs(): Promise<HomeJob[]> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("jobs")
+    .select(
+      `
+        id,
+        slug,
+        title_en,
+        category,
+        location_en,
+        employment_type,
+        shifts
+      `,
+    )
+    .eq("status", "published")
+    .order("created_at", { ascending: false })
+    .limit(2);
+
+  if (error) {
+    console.error("[home] Failed to load jobs:", error);
+
+    return [permanentJob];
+  }
+
+  const databaseJobs = ((data ?? []) as DatabaseJob[]).map((job) => ({
+    id: job.id,
+    slug: job.slug,
+    title: job.title_en,
+    meta: `${job.category} · ${job.location_en}`,
+    details: [job.employment_type, job.shifts]
+      .filter(Boolean)
+      .join(" · "),
+    href: `/en/jobs/${job.slug}`,
+  }));
+
+  return [permanentJob, ...databaseJobs];
+}
+
+export default async function HomePage() {
+  const homeJobs = await getHomeJobs();
+
   return (
-    // Changed overflow-hidden to overflow-x-hidden to prevent vertical cropping on the page level
     <main className="overflow-x-hidden bg-white text-[#182230]">
       {/* =========================================================
           HERO — LIGHT GRAY
@@ -78,13 +148,7 @@ export default function HomePage() {
         aria-labelledby="hero-title"
         className="w-full border-b border-[#DCE4EB] bg-[#F5F8FA]"
       >
-        {/* 
-          1. lg:min-h-[calc(100dvh-90px)] ensures it fills the desktop screen but GROWS if text is long.
-          2. flex flex-col lg:grid ensures it stacks cleanly on mobile before switching to a side-by-side grid.
-        */}
         <div className="mx-auto flex max-w-[1280px] flex-col lg:grid lg:min-h-[calc(100dvh-90px)] lg:grid-cols-[1.02fr_0.98fr]">
-          
-          {/* TEXT CONTAINER */}
           <div className="flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:px-8 lg:py-12 xl:pr-16">
             <div className="max-w-2xl">
               <div className="flex items-center gap-3">
@@ -140,11 +204,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* IMAGE CONTAINER */}
-          {/* 
-            1. h-[400px] sm:h-[500px] guarantees a solid height on mobile/tablet so it doesn't crop into a thin strip.
-            2. lg:h-auto lg:min-h-full forces the image to perfectly match the height of the text block on desktop.
-          */}
           <div className="relative h-[400px] w-full border-t border-[#DCE4EB] sm:h-[500px] lg:h-auto lg:min-h-full lg:border-l lg:border-t-0">
             <Image
               src="/images/manufacturing-workforce-hero.png"
@@ -152,8 +211,7 @@ export default function HomePage() {
               fill
               priority
               sizes="(min-width: 1024px) 49vw, 100vw"
-              // object-center ensures the middle of the image stays in frame even when scaling
-              className="object-cover object-center" 
+              className="object-cover object-center"
             />
 
             <div
@@ -450,7 +508,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================
-          JOBS — LIGHT GRAY
+          JOBS — DYNAMIC
       ========================================================= */}
       <section
         aria-labelledby="jobs-title"
@@ -459,19 +517,20 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1280px]">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="max-w-3xl">
-              <p className={sectionLabel}>{content.jobs.eyebrow}</p>
+              <p className={sectionLabel}>CURRENT OPPORTUNITIES</p>
 
               <h2 id="jobs-title" className={`mt-5 ${sectionTitle}`}>
-                {content.jobs.title}
+                Find available jobs in Poland.
               </h2>
 
               <p className={`mt-5 max-w-2xl ${bodyText}`}>
-                {content.jobs.description}
+                Browse our current vacancies and find employment opportunities
+                that match your skills, experience and availability.
               </p>
             </div>
 
             <Link href="/en/jobs" className={`${textLink} shrink-0`}>
-              {content.jobs.cta}
+              View All Jobs
 
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
@@ -481,9 +540,9 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 border-t border-[#DCE4EB]">
-            {content.jobs.listings.map((job) => (
+            {homeJobs.map((job) => (
               <article
-                key={job.title}
+                key={job.id}
                 className="grid gap-5 border-b border-[#DCE4EB] py-7 md:grid-cols-[1.15fr_0.7fr_0.8fr_auto] md:items-center md:gap-8"
               >
                 <div>
@@ -500,13 +559,16 @@ export default function HomePage() {
                   {job.meta}
                 </p>
 
-                <p className="text-sm text-[#5B6878]">{job.details}</p>
+                <p className="text-sm text-[#5B6878]">
+                  {job.details}
+                </p>
 
                 <Link
-                  href="/en/jobs"
+                  href={job.href}
                   className={`${textLink} justify-self-start md:justify-self-end`}
                 >
                   View position
+
                   <ArrowRight
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     aria-hidden="true"

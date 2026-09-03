@@ -112,9 +112,7 @@ export default function InjectionMachineOperatorPage() {
 
               <div className="mt-7 border-t border-[#DCE4EB] pt-6">
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">
-                    Godziny pracy
-                  </span>
+                  <span className="text-sm text-[#5B6878]">Godziny pracy</span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     12 godzin / dzień
@@ -122,9 +120,7 @@ export default function InjectionMachineOperatorPage() {
                 </div>
 
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-[#5B6878]">
-                    Dni pracy
-                  </span>
+                  <span className="text-sm text-[#5B6878]">Dni pracy</span>
 
                   <span className="text-sm font-semibold text-[#0E2942]">
                     5–6 dni / tydzień
@@ -175,9 +171,7 @@ export default function InjectionMachineOperatorPage() {
                   Godziny pracy
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">
-                  12 godzin/dzień
-                </p>
+                <p className="mt-2 font-bold text-[#0E2942]">12 godzin/dzień</p>
               </div>
             </div>
 
@@ -189,9 +183,7 @@ export default function InjectionMachineOperatorPage() {
                   Dni pracy
                 </p>
 
-                <p className="mt-2 font-bold text-[#0E2942]">
-                  5–6 dni/tydzień
-                </p>
+                <p className="mt-2 font-bold text-[#0E2942]">5–6 dni/tydzień</p>
               </div>
             </div>
 
@@ -220,9 +212,7 @@ export default function InjectionMachineOperatorPage() {
         <div>
           <p className={sectionLabel}>Opis stanowiska</p>
 
-          <h2 className={`mt-5 ${sectionTitle}`}>
-            Operator wtryskarki
-          </h2>
+          <h2 className={`mt-5 ${sectionTitle}`}>Operator wtryskarki</h2>
         </div>
 
         <div className="space-y-5">
@@ -264,9 +254,7 @@ export default function InjectionMachineOperatorPage() {
             <div>
               <p className={sectionLabel}>Obowiązki</p>
 
-              <h2 className={`mt-5 ${sectionTitle}`}>
-                Zakres obowiązków
-              </h2>
+              <h2 className={`mt-5 ${sectionTitle}`}>Zakres obowiązków</h2>
 
               <ul className="mt-9 border-t border-[#DCE4EB]">
                 {[
@@ -297,9 +285,7 @@ export default function InjectionMachineOperatorPage() {
             <div>
               <p className={sectionLabel}>Wymagania</p>
 
-              <h2 className={`mt-5 ${sectionTitle}`}>
-                Czego oczekujemy
-              </h2>
+              <h2 className={`mt-5 ${sectionTitle}`}>Czego oczekujemy</h2>
 
               <ul className="mt-9 border-t border-[#DCE4EB]">
                 {[
@@ -378,7 +364,10 @@ export default function InjectionMachineOperatorPage() {
               </div>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link href="/pl/contact" className={primaryButton}>
+                <Link
+                  href="/pl/jobs/injection-machine-operator/apply"
+                  className={primaryButton}
+                >
                   Aplikuj na to stanowisko
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -418,7 +407,6 @@ export default function InjectionMachineOperatorPage() {
             className="group inline-flex shrink-0 items-center justify-center gap-2 bg-[#123B63] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#0E2942] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#159A86] focus-visible:ring-offset-2"
           >
             Skontaktuj się z nami
-
             <ArrowRight
               className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
               aria-hidden="true"

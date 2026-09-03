@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
 import { homeContent } from "@/app/content/home";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const content = homeContent.pl;
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     languages: {
       en: "/en",
       pl: "/pl",
+      uk: "/ua",
     },
   },
 
@@ -67,18 +69,82 @@ const sectionTitle =
 
 const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
-export default function PolishHomePage() {
+type DatabaseJob = {
+  id: string;
+  slug: string;
+  title_pl: string;
+  category: string;
+  location_pl: string;
+  employment_type: string;
+  shifts: string | null;
+};
+
+type HomeJob = {
+  id: string;
+  title: string;
+  meta: string;
+  details: string;
+  href: string;
+};
+
+const permanentJob: HomeJob = {
+  id: "permanent-injection-machine-operator",
+  title: "Operator wtryskarki",
+  meta: "Produkcja · Wrocław, Polska",
+  details: "Pełny etat · Praca zmianowa",
+  href: "/pl/jobs/injection-machine-operator",
+};
+
+async function getHomeJobs(): Promise<HomeJob[]> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("jobs")
+    .select(
+      `
+        id,
+        slug,
+        title_pl,
+        category,
+        location_pl,
+        employment_type,
+        shifts
+      `,
+    )
+    .eq("status", "published")
+    .order("created_at", { ascending: false })
+    .limit(2);
+
+  if (error) {
+    console.error("[home-pl] Failed to load jobs:", error);
+
+    return [permanentJob];
+  }
+
+  const databaseJobs = ((data ?? []) as DatabaseJob[]).map((job) => ({
+    id: job.id,
+    title: job.title_pl,
+    meta: `${job.category} · ${job.location_pl}`,
+    details: [job.employment_type, job.shifts].filter(Boolean).join(" · "),
+    href: `/pl/jobs/${job.slug}`,
+  }));
+
+  return [permanentJob, ...databaseJobs];
+}
+
+export default async function HomePage() {
+  const homeJobs = await getHomeJobs();
+
   return (
     <main className="overflow-x-hidden bg-white text-[#182230]">
       {/* =========================================================
-          HERO — LIGHT GRAY
+          HERO
       ========================================================= */}
       <section
         aria-labelledby="hero-title"
         className="w-full border-b border-[#DCE4EB] bg-[#F5F8FA]"
       >
         <div className="mx-auto flex max-w-[1280px] flex-col lg:grid lg:min-h-[calc(100dvh-90px)] lg:grid-cols-[1.02fr_0.98fr]">
-          {/* TEXT CONTAINER */}
           <div className="flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:px-8 lg:py-12 xl:pr-16">
             <div className="max-w-2xl">
               <div className="flex items-center gap-3">
@@ -138,7 +204,6 @@ export default function PolishHomePage() {
             </div>
           </div>
 
-          {/* IMAGE CONTAINER */}
           <div className="relative h-[400px] w-full border-t border-[#DCE4EB] sm:h-[500px] lg:h-auto lg:min-h-full lg:border-l lg:border-t-0">
             <Image
               src="/images/manufacturing-workforce-hero.png"
@@ -170,7 +235,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          COMPANY — WHITE
+          COMPANY
       ========================================================= */}
       <section
         aria-labelledby="company-title"
@@ -208,7 +273,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          SERVICES — LIGHT GRAY
+          SERVICES
       ========================================================= */}
       <section
         id="services"
@@ -270,7 +335,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          MANUFACTURING — WHITE
+          MANUFACTURING
       ========================================================= */}
       <section
         aria-labelledby="manufacturing-title"
@@ -278,12 +343,10 @@ export default function PolishHomePage() {
       >
         <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[0.72fr_1fr] lg:gap-20 lg:px-8 lg:py-28">
           <div>
-            <p className={sectionLabel}>
-              {content.manufacturing.eyebrow}
-            </p>
+            <p className={sectionLabel}>{content.manufacturing.eyebrow}</p>
 
             <div className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
-              Produkcja i przemysł to kluczowe obszary naszej działalności
+              Produkcja i przemysł są ważnymi obszarami naszej działalności
               rekrutacyjnej.
             </div>
           </div>
@@ -334,7 +397,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          EMPLOYERS — LIGHT GRAY
+          EMPLOYERS
       ========================================================= */}
       <section
         aria-labelledby="employers-title"
@@ -384,7 +447,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          EMPLOYEES — WHITE
+          EMPLOYEES
       ========================================================= */}
       <section
         aria-labelledby="employees-title"
@@ -395,7 +458,7 @@ export default function PolishHomePage() {
             <p className={sectionLabel}>{content.employees.eyebrow}</p>
 
             <div className="mt-8 max-w-xs text-sm leading-6 text-[#8A96A3]">
-              Oferty pracy dla osób na różnych etapach kariery zawodowej.
+              Możliwości dla osób na różnych etapach kariery zawodowej.
             </div>
           </div>
 
@@ -445,7 +508,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          JOBS — LIGHT GRAY
+          CURRENT JOBS — DYNAMIC
       ========================================================= */}
       <section
         aria-labelledby="jobs-title"
@@ -466,8 +529,7 @@ export default function PolishHomePage() {
             </div>
 
             <Link href="/pl/jobs" className={`${textLink} shrink-0`}>
-              {content.jobs.cta}
-
+              Zobacz wszystkie oferty
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                 aria-hidden="true"
@@ -476,9 +538,9 @@ export default function PolishHomePage() {
           </div>
 
           <div className="mt-12 border-t border-[#DCE4EB]">
-            {content.jobs.listings.map((job) => (
+            {homeJobs.map((job) => (
               <article
-                key={job.title}
+                key={job.id}
                 className="grid gap-5 border-b border-[#DCE4EB] py-7 md:grid-cols-[1.15fr_0.7fr_0.8fr_auto] md:items-center md:gap-8"
               >
                 <div>
@@ -498,11 +560,10 @@ export default function PolishHomePage() {
                 <p className="text-sm text-[#5B6878]">{job.details}</p>
 
                 <Link
-                  href="/pl/jobs"
+                  href={job.href}
                   className={`${textLink} justify-self-start md:justify-self-end`}
                 >
-                  Zobacz ofertę
-
+                  Zobacz stanowisko
                   <ArrowRight
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     aria-hidden="true"
@@ -515,7 +576,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          WHY H&M SYNERGY — WHITE
+          WHY H&M SYNERGY
       ========================================================= */}
       <section
         aria-labelledby="why-title"
@@ -552,7 +613,7 @@ export default function PolishHomePage() {
       </section>
 
       {/* =========================================================
-          FINAL CTA — LIGHT GRAY
+          FINAL CTA
       ========================================================= */}
       <section
         aria-labelledby="final-cta-title"

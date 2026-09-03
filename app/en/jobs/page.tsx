@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import JobsPage from "@/components/JobsPage";
 
 export const metadata: Metadata = {
-  title: "Jobs in Poland | Manufacturing, Production & Student Jobs | H&M Synergy",
+  title:
+    "Jobs in Poland | Manufacturing, Production & Student Jobs | H&M Synergy",
 
   description:
     "Find current jobs in Poland with H&M Synergy, including manufacturing, production, machine operator, warehouse, logistics, student and graduate job opportunities.",
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
     languages: {
       en: "/en/jobs",
       pl: "/pl/jobs",
+      uk: "/ua/jobs",
     },
   },
 
@@ -74,5 +76,5 @@ export const metadata: Metadata = {
 };
 
 export default function JobsRoutePage() {
-  return <JobsPage />;
+  return <JobsPage locale="en" />;
 }

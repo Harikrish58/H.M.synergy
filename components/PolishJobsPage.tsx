@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { jobs as availableJobs } from "@/lib/jobs";
 import {
   ArrowRight,
   MapPin,
@@ -7,15 +8,15 @@ import {
   Users,
 } from "lucide-react";
 
-const jobs = [
-  {
-    title: "Operator wtryskarki",
-    location: "Polska",
-    category: "Produkcja",
-    tags: ["Pełny etat", "Praca zmianowa"],
-    href: "/pl/jobs/injection-machine-operator",
-  },
-];
+const jobs = availableJobs.map((job) => ({
+  ...job,
+  title: job.title.pl,
+  location: job.location.pl,
+  category: job.category.pl,
+  tags: ["Pełny etat", "Praca zmianowa"],
+  href: `/pl/jobs/${job.slug}`,
+  applyHref: `/pl/jobs/${job.slug}/apply`,
+}));
 
 const candidateGroups = [
   {
@@ -53,8 +54,7 @@ const sectionLabel =
 const sectionTitle =
   "text-3xl font-bold leading-tight tracking-[-0.035em] text-[#0E2942] sm:text-4xl lg:text-[2.65rem]";
 
-const bodyText =
-  "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
+const bodyText = "text-base leading-7 text-[#5B6878] sm:text-lg sm:leading-8";
 
 export default function PolishJobsPage() {
   return (
@@ -91,8 +91,8 @@ export default function PolishJobsPage() {
             </p>
 
             <p className="mt-5 max-w-2xl text-sm leading-6 text-[#687585] sm:text-base">
-              Studenci, absolwenci oraz osoby z doświadczeniem zawodowym są
-              mile widziani i mogą aplikować na odpowiednie oferty pracy.
+              Studenci, absolwenci oraz osoby z doświadczeniem zawodowym są mile
+              widziani i mogą aplikować na odpowiednie oferty pracy.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -166,7 +166,7 @@ export default function PolishJobsPage() {
               <div className="border-t border-[#DCE4EB]">
                 {jobs.map((job, index) => (
                   <article
-                    key={job.title}
+                    key={job.slug}
                     className="border-b border-[#DCE4EB] py-8 sm:py-9"
                   >
                     <div className="grid gap-6 md:grid-cols-[56px_1fr_auto] md:items-start">

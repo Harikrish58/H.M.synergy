@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { jobs as availableJobs } from "@/lib/jobs";
 import {
   ArrowRight,
   MapPin,
@@ -7,15 +8,15 @@ import {
   Users,
 } from "lucide-react";
 
-const jobs = [
-  {
-    title: "Оператор термопластавтомата",
-    location: "Польща",
-    category: "Виробництво",
-    tags: ["Повна зайнятість", "Змінна робота"],
-    href: "/ua/jobs/injection-machine-operator",
-  },
-];
+const jobs = availableJobs.map((job) => ({
+  ...job,
+  title: job.title.ua,
+  location: job.location.ua,
+  category: job.category.ua,
+  tags: ["Повна зайнятість", "Змінна робота"],
+  href: `/ua/jobs/${job.slug}`,
+  applyHref: `/ua/jobs/${job.slug}/apply`,
+}));
 
 const candidateGroups = [
   {
@@ -165,7 +166,7 @@ export default function UkrainianJobsPage() {
               <div className="border-t border-[#DCE4EB]">
                 {jobs.map((job, index) => (
                   <article
-                    key={job.title}
+                    key={job.slug}
                     className="border-b border-[#DCE4EB] py-8 sm:py-9"
                   >
                     <div className="grid gap-6 md:grid-cols-[56px_1fr_auto] md:items-start">
@@ -381,7 +382,7 @@ export default function UkrainianJobsPage() {
       </section>
 
       {/* =========================================================
-          EMPLOYEE CTA — LIGHT GRAY
+          EMPLOYEE CTA — WHITE
       ========================================================= */}
       <section
         aria-labelledby="jobs-cta-title"
