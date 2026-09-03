@@ -14,6 +14,14 @@ The application provides three main areas:
 
 The public website supports English, Polish, and Ukrainian.
 
+## AI-Assisted Development
+
+- This project was developed with assistance from OpenAI Codex and ChatGPT.
+
+- AI tools were used for code generation, debugging, refactoring, technical problem solving, documentation, and development guidance.
+
+- The resulting application was integrated, configured, tested, and reviewed as part of the development process.
+
 ## Features
 
 ### Job Seekers
@@ -109,12 +117,3 @@ Admin
     +-- Submission Management
     +-- Job Publishing
     +-- AI Translation
-
-
-## Architecture
-
-- This project was developed with assistance from OpenAI Codex and ChatGPT.
-
-- AI tools were used for code generation, debugging, refactoring, technical problem solving, documentation, and development guidance.
-
-- The resulting application was integrated, configured, tested, and reviewed as part of the development process.
